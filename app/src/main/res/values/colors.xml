@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#252525</color>
+    <color name="colorPrimaryDark">#fd0d7aff</color>
+    <color name="offWhite">#eeeeef</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="firstScreenBackground">#71a0f4</color>
+    <color name="firstRlayoutScreenBackground">#ff7316</color>
+    <color name="toolBarRed">#E43F3F</color>
+    <color name="darkRed">#d20909</color>
+    <color name="White">#ffffff</color>
+    <color name="Black">#000000</color>
+</resources>

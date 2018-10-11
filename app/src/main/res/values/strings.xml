@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Attendance System</string>
+    <string-array name="studentsbca">
+        <item>Abin Biju</item>
+        <item>Anandhu V</item>
+        <item>Anandakrishnan S</item>
+        <item>Anandakrishnan S</item>
+        <item>Rejath R</item>
+        <item>Robin Biju</item>
+        <item>Ashwin P Kumar</item>
+        <item>Rithik S</item>
+        <item>Vipin G</item>
+        <item>Sreelal S</item>
+        <item>Nandhu Prabhakaran</item>
+        <item>Yadhu Krishnan R</item>
+        <item>Vaishnav Raj</item>
+        <item>Govind Rajagopal</item>
+        <item>Vishal Vijayan</item>
+        <item>Riju Raju</item>
+        <item>Sarath S</item>
+        <item>Aleena</item>
+        <item>Arya Mohan</item>
+        <item>Greeshma P</item>
+        <item>Greeshma S</item>
+        <item>Jitty S Jhon</item>
+        <item>Ansu K </item>
+        <item>Ansi K</item>
+        <item>Athulya S</item>
+        <item>Sareena S</item>
+        <item>Surya</item>
+        <item>Nayana Prabhakumar</item>
+        <item>Shijini</item>
+        <item>Mayuri M</item>
+        <item>Keerthi J</item>
+        <item>Nandana</item>
+        <item>Sony Dadu</item>
+        <item>Swapna TK</item>
+        <item>Sneha Samuel</item>
+        <item>Jissa</item>
+        <item>Ligy</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Notifications"
+        android:id="@+id/item_notifications"
+        android:icon="@drawable/ic_notifications_white_24dp"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/item_refresh_page"
+        android:icon="@drawable/ic_autorenew_black_24dp"
+        android:title="Refresh" />
+
+    <item
+        android:id="@+id/item_profilemenu"
+        android:title="Profile"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_logout"
+        android:title="Log Out"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_settingsmenu"
+        android:title="About App"
+        app:showAsAction="never" />
+</menu>
