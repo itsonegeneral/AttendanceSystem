@@ -33,6 +33,7 @@
             android:parentActivityName=".studentLogin"
             android:screenOrientation="portrait" />
         <activity
+            android:launchMode="singleTop"
             android:name=".StudentMainPage"
             android:screenOrientation="portrait" />
         <activity
