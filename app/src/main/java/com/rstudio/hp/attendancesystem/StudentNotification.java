@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
@@ -11,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -19,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -32,52 +37,45 @@ public class StudentNotification extends AppCompatActivity {
     CollectionReference notRef = firestore.collection("StudentNotifications");
     TextView test;
     boolean readNot;
+    NotificationAdaptor mAdaptor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_notification);
 
-        test = findViewById(R.id.tv_studNotification);
         setUpToolbar();
         setActionBarColor();
         loadData();
     }
     private void loadData(){
         final String userID = firebaseAuth.getUid();
-        notRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e==null) {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        DocumentReference dR = firestore.collection("StudentNotifications")
-                                .document(documentSnapshot.getId())
-                                .collection("UsersStatus")
-                                .document(userID);
-                        dR.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                try {
-                                    readNot = documentSnapshot.getBoolean("ifRead");
-                                }catch (NullPointerException N){
-                                    N.printStackTrace();
-                                }
-                            }
-                        });
-                        String t = documentSnapshot.getString("Nottitle");
-                        String d = documentSnapshot.getString("Notdescription");
-                        String f = "\nTitle :" + t + "\nDescription :" + d + "\nReadStatus" + readNot+"\n\n";
-                        stringBuffer.append(f);
-                    }
-                    test.setText(stringBuffer);
-                }else{
-                    Toast.makeText(StudentNotification.this,"Error occured while loading",Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Error"+ e.getMessage());
-                }
-            }
-        });
+        Query query = notRef;
+        FirestoreRecyclerOptions<NotificationClass> options = new FirestoreRecyclerOptions.Builder<NotificationClass>()
+                .setQuery(query,NotificationClass.class)
+                .build();
+        mAdaptor = new NotificationAdaptor(options);
+        RecyclerView recyclerView = findViewById(R.id.notifications_RecyclerView);
+        recyclerView.hasFixedSize();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdaptor);
+
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdaptor.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdaptor.stopListening();
+    }
+
     public void setUpToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar_studentNotification);
         setSupportActionBar(toolbar);

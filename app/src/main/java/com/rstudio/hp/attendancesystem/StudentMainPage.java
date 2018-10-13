@@ -56,6 +56,7 @@ public class StudentMainPage extends AppCompatActivity {
     FirebaseUser firebaseUser;
     ProgressBar pgBar;
     Menu mMenu;
+    MenuItem menuItem;
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @Override
@@ -211,13 +212,16 @@ public class StudentMainPage extends AppCompatActivity {
     }
 
     private void setNotificationUnread() {
-        MenuItem menuItem = mMenu.findItem(R.id.item_notifications);
         menuItem.setIcon(R.drawable.ic_notifications_unread);
     }
 
     private void setNotificationRead() {
-        MenuItem menuItem = mMenu.findItem(R.id.item_notifications);
-        menuItem.setIcon(R.drawable.ic_notifications_white_24dp);
+        try {
+            menuItem.setIcon(R.drawable.ic_notifications_white_24dp);
+        }catch(NullPointerException e){
+            e.printStackTrace();
+            Log.d(TAG, e.getMessage());
+        }
     }
 
     private void setActionBarColor() {
@@ -232,6 +236,7 @@ public class StudentMainPage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         mMenu = menu;
+        menuItem = mMenu.findItem(R.id.item_notifications);
         inflater.inflate(R.menu.studentmainpagemenu, menu);
         return true;
 

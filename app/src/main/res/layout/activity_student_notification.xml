@@ -6,15 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".StudentNotification">
 
+
+
     <include
         android:id="@+id/toolbar_studentNotification"
         layout="@layout/studenttoolbar" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:id="@+id/notifications_RecyclerView"
+        android:layout_below="@+id/toolbar_studentNotification"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="match_parent"
+        />
 
 
 </RelativeLayout>

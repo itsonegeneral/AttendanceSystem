@@ -13,14 +13,13 @@
         tools:replace="icon">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".studentLogin"
             android:parentActivityName=".MainActivity"
@@ -36,7 +35,6 @@
         <activity
             android:name=".StudentMainPage"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".AdminMain"
             android:parentActivityName=".MainActivity"
@@ -50,11 +48,11 @@
             android:name=".ForgotPassword"
             android:parentActivityName=".studentLogin"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".StudentNotification"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".StudentMainPage"/>
-
+        <activity
+            android:name=".StudentNotification"
+            android:parentActivityName=".StudentMainPage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CreateNewNotification"></activity>
     </application>
 
 </manifest>

@@ -5,17 +5,25 @@ public class NotificationClass {
     private String Notdate;
     private String Nottitle;
     private int priority;
+    private boolean readStatus;
     public NotificationClass(){
 
     }
 
-    public NotificationClass( String nottitle,String notdescription, String notdate, int priority) {
+    public NotificationClass( String nottitle,String notdescription, String notdate, int priority,boolean readStatus) {
         Notdescription = notdescription;
         Notdate = notdate;
         Nottitle = nottitle;
         this.priority = priority;
+        this.readStatus = readStatus;
     }
 
+    public boolean getReadStatus(){
+        return readStatus;
+    }
+    public void setReadStatus(boolean status){
+        this.readStatus  = status;
+    }
     public String getNotdescription() {
 
         return Notdescription;
