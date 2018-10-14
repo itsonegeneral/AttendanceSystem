@@ -1,5 +1,7 @@
 package com.rstudio.hp.attendancesystem;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +13,16 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class NotificationAdaptor extends FirestoreRecyclerAdapter<NotificationClass, NotificationAdaptor.NotificationHolder> {
 
-    boolean readStatus;
-    public NotificationAdaptor(@NonNull FirestoreRecyclerOptions<NotificationClass> options) {
+    CardView cardView;
+    boolean admin;
+    public NotificationAdaptor(@NonNull FirestoreRecyclerOptions<NotificationClass> options,boolean admin) {
         super(options);
+        this.admin= admin;
+
 
     }
 
@@ -25,7 +31,14 @@ public class NotificationAdaptor extends FirestoreRecyclerAdapter<NotificationCl
         holder.description.setText(model.getNotdescription());
         holder.date.setText(model.getNotdate());
         holder.title.setText(model.getNottitle());
+        if(admin){
+            cardView.setRadius(4);
+            cardView.setBackgroundColor(Color.parseColor("#81DAF5"));
+        }
+
     }
+
+
 
     @NonNull
     @Override
@@ -44,9 +57,14 @@ public class NotificationAdaptor extends FirestoreRecyclerAdapter<NotificationCl
         public NotificationHolder(View v) {
 
             super(v);
+            cardView = v.findViewById(R.id.cardView_Notification);
             title = v.findViewById(R.id.tv_Title_NotificationLayout);
             date = v.findViewById(R.id.tv_Date_NotificationLayout);
             description = v.findViewById(R.id.tv_Description_NotificationLayout);
+        }
+
+        public void changeColour(){
+            cardView.setBackgroundColor(Color.parseColor("#70c9e4"));
         }
     }
 }

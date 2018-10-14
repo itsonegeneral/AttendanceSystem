@@ -21,7 +21,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="327dp"
+        android:layout_height="350dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -50,9 +50,9 @@
             <EditText
                 android:id="@+id/et_studentEmail"
                 android:layout_width="250sp"
-                android:inputType="textEmailAddress"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -102,14 +102,21 @@
                 android:textColor="#000"
                 android:textSize="16sp"
                 android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tv_AdminLogin"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                android:fontFamily="serif"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Admin Login" />
         </LinearLayout>
 
     </RelativeLayout>
-
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/snackbar_studentLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 
 </android.support.constraint.ConstraintLayout>

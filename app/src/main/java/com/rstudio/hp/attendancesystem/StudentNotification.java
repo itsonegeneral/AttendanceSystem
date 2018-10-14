@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
@@ -38,7 +42,8 @@ public class StudentNotification extends AppCompatActivity {
     TextView test;
     boolean readNot;
     NotificationAdaptor mAdaptor;
-
+    ArrayList<Integer> unreadPositions;
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,33 @@ public class StudentNotification extends AppCompatActivity {
         setUpToolbar();
         setActionBarColor();
         loadData();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getUid();
+        notRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e!=null){
+
+                }else {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        DocumentReference docRef = notRef.document(documentSnapshot.getId())
+                                .collection("UsersStatus")
+                                .document(userID);
+                        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                try{
+                                    boolean read = documentSnapshot.getBoolean("ifRead");
+                                }catch(NullPointerException e){
+
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
     private void loadData(){
         final String userID = firebaseAuth.getUid();
@@ -55,11 +87,13 @@ public class StudentNotification extends AppCompatActivity {
         FirestoreRecyclerOptions<NotificationClass> options = new FirestoreRecyclerOptions.Builder<NotificationClass>()
                 .setQuery(query,NotificationClass.class)
                 .build();
-        mAdaptor = new NotificationAdaptor(options);
+
+        mAdaptor = new NotificationAdaptor(options,false);
         RecyclerView recyclerView = findViewById(R.id.notifications_RecyclerView);
-        recyclerView.hasFixedSize();
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdaptor);
+
 
 
     }

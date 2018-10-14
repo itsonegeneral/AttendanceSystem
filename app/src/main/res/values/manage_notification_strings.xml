@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="swipe_to_delete_or">Swipe to delete or add a new notification</string>
+    <string name="title">Titile</string>
+    <string name="description">Description</string>
+    <string name="selection_date">Date has been automatically selected</string>
+    <string name="notifications">Manage Notifications</string>
+    <string name="register_attendance">Register Attendance</string>
+
+</resources>

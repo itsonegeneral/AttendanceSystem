@@ -33,7 +33,7 @@ public class adminLogin extends AppCompatActivity {
                     public void onClick(View view) {
                         if(checkUserInput()) {
                             finish();
-                            startActivity(new Intent(adminLogin.this, AdminMain.class));
+                            startActivity(new Intent(adminLogin.this, AdminMenuActivity.class));
                         }
                     }
                 });
@@ -42,7 +42,6 @@ public class adminLogin extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.adminmaintoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Admin Login");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     private boolean checkUserInput(){
         String p,u;

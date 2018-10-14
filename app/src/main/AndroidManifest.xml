@@ -11,8 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="icon">
+
+
         <activity
-            android:name=".MainActivity"
+            android:name=".studentLogin"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,24 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".studentLogin"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".adminLogin"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".studentSignUp"
             android:parentActivityName=".studentLogin"
             android:screenOrientation="portrait" />
         <activity
-            android:launchMode="singleTop"
             android:name=".StudentMainPage"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AdminMain"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".AdminMenuActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -53,7 +50,17 @@
             android:name=".StudentNotification"
             android:parentActivityName=".StudentMainPage"
             android:screenOrientation="portrait" />
-        <activity android:name=".CreateNewNotification"></activity>
+        <activity
+            android:name=".CreateNewNotification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ManageNotificationsAdmin"
+            android:launchMode="singleTop"
+            android:parentActivityName=".AdminMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdminMenuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

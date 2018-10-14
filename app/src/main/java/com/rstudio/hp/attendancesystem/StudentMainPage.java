@@ -121,6 +121,11 @@ public class StudentMainPage extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
 
     private void loadUserDetails() {
         pgBar.setVisibility(View.VISIBLE);
