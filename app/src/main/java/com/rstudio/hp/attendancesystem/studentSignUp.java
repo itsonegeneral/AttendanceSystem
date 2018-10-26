@@ -1,12 +1,14 @@
 package com.rstudio.hp.attendancesystem;
 
 import android.app.ProgressDialog;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,7 +45,9 @@ public class studentSignUp extends AppCompatActivity {
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUserAccount();
+                //createUserAccount();
+                Toast.makeText(getApplicationContext(),spinner.getSelectedItem().toString(),Toast.LENGTH_SHORT)
+                        .show();
 
             }
         });
@@ -55,7 +59,7 @@ public class studentSignUp extends AppCompatActivity {
         });
     }
     private void setUpToolbar(){
-        Toolbar toolbar = findViewById(R.id.toobar_registration);
+        Toolbar toolbar = findViewById(R.id.toolbar_registration);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Registration");
@@ -63,6 +67,9 @@ public class studentSignUp extends AppCompatActivity {
     private void setValues(){
         spinner = findViewById(R.id.spinnerBatch);
         spinner.setPrompt("Select Batch");
+        String[] batchlist = getResources().getStringArray(R.array.BatchNames);
+        ArrayAdapter<String> batchAdaptor = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,batchlist);
+        spinner.setAdapter(batchAdaptor);
         studentName= findViewById(R.id.et_newStudentName);
         studentPass1= findViewById(R.id.et_newStudentPassword);
         studentPass2= findViewById(R.id.et_newStudentPasswordRetype);

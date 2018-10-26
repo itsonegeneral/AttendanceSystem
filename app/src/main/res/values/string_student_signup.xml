@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="roll_no">Roll No</string>
+    <string name="select_batch">Select Batch</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="confirm_pass">Confirm Pass</string>
+    <string name="select_sem">Select Sem</string>
+    <string name="create_account">Create Account</string>
+</resources>

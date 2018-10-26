@@ -2,5 +2,8 @@
 <resources>
     <string-array name="BatchNames">
         <item>BCA</item>
+        <item>Bsc Electronics</item>
+        <item>B.Com</item>
+        <item>Bsc CS</item>
     </string-array>
 </resources>

@@ -8,144 +8,187 @@
     tools:context=".studentSignUp">
 
     <include
-        android:id="@+id/toobar_registration"
+        android:id="@+id/toolbar_registration"
         layout="@layout/toolbar" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_below="@+id/toobar_registration"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/user" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_registration"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="220dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Name"
-        android:textColor="#000"
-        android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/et_newStudentName"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLines="1"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="25dp"
-        android:layout_toEndOf="@+id/textView4" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/user" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="110sp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="false"
-        android:layout_centerInParent="false"
-        android:layout_centerVertical="false"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Select Batch"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/spinnerBatch"
-        android:layout_width="108dp"
-        android:layout_height="45dp"
-        android:layout_below="@+id/textView4"
-        android:layout_marginLeft="4dp"
-        android:layout_toEndOf="@+id/textView4"
-        android:entries="@array/BatchNames"
-        android:spinnerMode="dropdown">
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/name"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-    </Spinner>
-    <TextView
-        android:id="@+id/textView9"
-        android:text="Roll No"
-        android:textSize="18sp"
-        android:layout_below="@id/textView5"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="#000"
-        android:layout_width="110dp"
-        android:layout_height="45dp" />
-    <EditText
-        android:id="@+id/et_newStudentRollNo"
-        android:layout_toRightOf="@+id/textView9"
-        android:inputType="number"
-        android:layout_below="@id/spinnerBatch"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_newStudentName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:text="Email"
-        android:textColor="#000"
-        android:textSize="18sp"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView9" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/et_newStudentEmail"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_newStudentRollNo"
-        android:layout_toEndOf="@+id/textView4"
-        android:inputType="textEmailAddress" />
-    <TextView
-        android:id="@+id/textView7"
-        android:text="Password"
-        android:layout_below="@id/textView6"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_width="110dp"
-        android:layout_height="45dp" />
-    <EditText
-        android:id="@+id/et_newStudentPassword"
-        android:layout_toRightOf="@+id/textView7"
-        android:layout_below="@+id/et_newStudentEmail"
-        android:layout_width="200dp"
-        android:hint="Min 6 charcters"
-        android:inputType="textPassword"
-        android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_below="@+id/textView7"
-        android:text="Confirm Pass"
-        android:textSize="18sp"
-        android:textColor="#000"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_width="110sp"
-        android:layout_height="45dp" />
-    <EditText
-        android:id="@+id/et_newStudentPasswordRetype"
-        android:layout_toRightOf="@+id/textView8"
-        android:inputType="textPassword"
-        android:layout_below="@+id/et_newStudentPassword"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="110sp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/select_batch"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/bt_createStudentAccount"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_newStudentPasswordRetype"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_layout_custom"
-        android:text="Create Account"
-        android:textAllCaps="false"
-        tools:textColor="#f1eeee" />
+            <Spinner
+                android:id="@+id/spinnerBatch"
+                android:layout_width="150dp"
+                android:layout_height="45dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110sp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/select_sem"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <NumberPicker
+                android:id="@+id/numberpicker_sem"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/roll_no"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_newStudentRollNo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/email"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_newStudentEmail"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="45dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/pass"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_newStudentPassword"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="Min 6 charcters"
+                android:inputType="textPassword"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="110sp"
+                android:layout_height="45dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/confirm_pass"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_newStudentPasswordRetype"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_createStudentAccount"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_layout_custom"
+            android:text="@string/create_account"
+            android:textAllCaps="false"
+            tools:textColor="#f1eeee" />
+    </LinearLayout>
+    
+
 </RelativeLayout>
