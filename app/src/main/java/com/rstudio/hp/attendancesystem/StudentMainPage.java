@@ -109,12 +109,16 @@ public class StudentMainPage extends AppCompatActivity {
                                         rMap.put("ifRead", false);
                                         dR.set(rMap);
                                         ne.printStackTrace();
+                                        setNotificationUnread();
+                                        unreadNotifications++;
                                     }
 
                                 }
                             });
                     if (unreadNotifications == 0) {
                         setNotificationRead();
+                    }else{
+                        Snackbar.make(findViewById(android.R.id.content),"You have "+unreadNotifications+ " unread notifications",Snackbar.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -217,7 +221,7 @@ public class StudentMainPage extends AppCompatActivity {
     }
 
     private void setNotificationUnread() {
-        menuItem.setIcon(R.drawable.ic_notifications_unread);
+      //  menuItem.setIcon(R.drawable.ic_notifications_unread);
     }
 
     private void setNotificationRead() {

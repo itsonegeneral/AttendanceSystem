@@ -1,15 +1,30 @@
 package com.rstudio.hp.attendancesystem;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Matcher;
 
 public class adminLogin extends AppCompatActivity {
 
@@ -18,6 +33,7 @@ public class adminLogin extends AppCompatActivity {
     final int pin = 8241;
     EditText _et_adminLoginPass,_et_adminLoginUser;
     Button loginbtn;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +48,7 @@ public class adminLogin extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if(checkUserInput()) {
-                            finish();
-                            startActivity(new Intent(adminLogin.this, AdminMenuActivity.class));
+                            firebaseLogin();
                         }
                     }
                 });
@@ -55,19 +70,44 @@ public class adminLogin extends AppCompatActivity {
             if(p.isEmpty())
             _et_adminLoginPass.setError("Enter Pin");
             return false;
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(u).matches() ){
+            _et_adminLoginUser.setError("Enter a valid email");
+        }else{
+            return true;
         }
-        else if((Integer.parseInt(u)==USERID)){
-            if((Integer.parseInt(p)==pin)) {
-                Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        }
-        if(chance<1){
-            Snackbar.make(findViewById(android.R.id.content),"0 chances remaining",Snackbar.LENGTH_SHORT).show();
-            loginbtn.setClickable(false);
-            return false;
-        }
-        Snackbar.make(findViewById(android.R.id.content),chance+" chances remaining",Snackbar.LENGTH_SHORT).show();
         return false;
+    }
+    private void firebaseLogin(){
+        final String email  = _et_adminLoginUser.getText().toString().trim();
+        final String pass = _et_adminLoginPass.getText().toString();
+
+        firebaseAuth.signInWithEmailAndPassword(email,pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            isAdmin(email,pass);
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Error 401",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    private void isAdmin(String email,String pass){
+
+        DatabaseReference dbRef  = FirebaseDatabase.getInstance().getReference("admins").child(firebaseAuth.getUid());
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    finish();
+                    startActivity(new Intent(adminLogin.this,AdminMenuActivity.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Error 107",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

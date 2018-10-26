@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,14 +41,19 @@ public class studentLogin extends AppCompatActivity {
     Button login_bt;
     boolean admin = false;
     ProgressDialog pgDialog;
+    ImageView art_image;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
         setValues();
+        showAnimations();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user != null) {
+            Toast.makeText(getApplicationContext(),"Auto Logging in",Toast.LENGTH_SHORT).show();
             isAdmin();
         }
         login_bt.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +92,9 @@ public class studentLogin extends AppCompatActivity {
         this.login_bt = findViewById(R.id.bt_studentSignin);
         signup_tv = findViewById(R.id.tv_studentCreateAccount);
         signinEmail_et = findViewById(R.id.et_studentEmail);
+        linearLayout = findViewById(R.id.linearLayout_studentLogin);
         signinPass_et = findViewById(R.id.et_studentPassword);
+        art_image = findViewById(R.id.imageView);
         forgot_pass_tv = findViewById(R.id.tv_forgotPasswordLogin);
         forgot_pass_tv.setVisibility(View.INVISIBLE);
         pgDialog = new ProgressDialog(studentLogin.this);
@@ -93,15 +103,13 @@ public class studentLogin extends AppCompatActivity {
 
     private void isAdmin() {
         String mail = FirebaseAuth.getInstance().getUid();
-        Toast.makeText(getApplicationContext(), mail, Toast.LENGTH_SHORT).show();
         DatabaseReference db_ref = FirebaseDatabase.getInstance().getReference("Admins").child(mail);
         db_ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    startActivity(new Intent(studentLogin.this, AdminMenuActivity.class));
-                    Toast.makeText(getApplicationContext(),"Refirecting to Admin Panel",Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(getApplicationContext(),"Admin account detected ,Goto Admin Login",Toast.LENGTH_SHORT)
+                            .show();
                 } else {
                     startActivity(new Intent(studentLogin.this, StudentMainPage.class));
                     finish();
@@ -162,6 +170,15 @@ public class studentLogin extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showAnimations(){
+        Animation anim_slide_down = AnimationUtils.loadAnimation(this,R.anim.slide_down);
+        Animation anim_move_up = AnimationUtils.loadAnimation(this,R.anim.move_up);
+        anim_slide_down.setDuration(700);
+        anim_move_up.setDuration(700);
+        art_image.startAnimation(anim_slide_down);
+        linearLayout.startAnimation(anim_move_up);
     }
 
     private boolean checkOnline() {
