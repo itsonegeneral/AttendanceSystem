@@ -53,7 +53,8 @@ public class studentLogin extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
-            Toast.makeText(getApplicationContext(),"Auto Logging in",Toast.LENGTH_SHORT).show();
+            pgDialog.setMessage("Auto Login");
+            pgDialog.show();
             isAdmin();
         }
         login_bt.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +90,7 @@ public class studentLogin extends AppCompatActivity {
 
     private void setValues() {
         //initialise values to variables
+
         this.login_bt = findViewById(R.id.bt_studentSignin);
         signup_tv = findViewById(R.id.tv_studentCreateAccount);
         signinEmail_et = findViewById(R.id.et_studentEmail);
@@ -110,17 +112,22 @@ public class studentLogin extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     Toast.makeText(getApplicationContext(),"Admin account detected ,Goto Admin Login",Toast.LENGTH_SHORT)
                             .show();
+                    pgDialog.cancel();
                 } else {
+                    pgDialog.cancel();
                     startActivity(new Intent(studentLogin.this, StudentMainPage.class));
                     finish();
+
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                pgDialog.cancel();
                 Log.d(TAG, databaseError.getMessage());
             }
         });
+
         /* return admin; */
     }
 
@@ -148,7 +155,7 @@ public class studentLogin extends AppCompatActivity {
         final String mail, pass;
         mail = signinEmail_et.getText().toString();
         pass = signinPass_et.getText().toString();
-        pgDialog.setMessage("Verifying User");
+        pgDialog.setMessage("Logging In");
         pgDialog.show();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

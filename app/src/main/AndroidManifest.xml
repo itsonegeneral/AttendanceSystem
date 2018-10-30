@@ -12,6 +12,11 @@
         android:theme="@style/AppTheme"
         tools:replace="icon">
 
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".studentLogin"

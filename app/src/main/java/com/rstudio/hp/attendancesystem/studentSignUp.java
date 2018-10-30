@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import static com.google.firebase.auth.FirebaseAuth.*;
 
 public class studentSignUp extends AppCompatActivity {
-    Spinner spinner;
+    Spinner batch_spinner,sem_spinner;
     EditText studentName,studentPass1,studentPass2,studentEmail,studentRollNo;
     Button createAccountBtn;
     FirebaseAuth firebaseAuth;
@@ -45,9 +46,8 @@ public class studentSignUp extends AppCompatActivity {
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //createUserAccount();
-                Toast.makeText(getApplicationContext(),spinner.getSelectedItem().toString(),Toast.LENGTH_SHORT)
-                        .show();
+               createUserAccount();
+
 
             }
         });
@@ -65,11 +65,9 @@ public class studentSignUp extends AppCompatActivity {
         getSupportActionBar().setTitle("Registration");
     }
     private void setValues(){
-        spinner = findViewById(R.id.spinnerBatch);
-        spinner.setPrompt("Select Batch");
-        String[] batchlist = getResources().getStringArray(R.array.BatchNames);
-        ArrayAdapter<String> batchAdaptor = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,batchlist);
-        spinner.setAdapter(batchAdaptor);
+        batch_spinner = findViewById(R.id.spinnerBatch);
+        sem_spinner = findViewById(R.id.spinnerSem);
+        setUpSpinner();
         studentName= findViewById(R.id.et_newStudentName);
         studentPass1= findViewById(R.id.et_newStudentPassword);
         studentPass2= findViewById(R.id.et_newStudentPasswordRetype);
@@ -81,6 +79,18 @@ public class studentSignUp extends AppCompatActivity {
         pgBar = new ProgressDialog(studentSignUp.this);
 
     }
+
+    private void setUpSpinner() {
+        sem_spinner.setPrompt("Select Sem ");
+        String[] semlist  =getResources().getStringArray(R.array.sem_array);
+        ArrayAdapter<String> semAdaptor = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,semlist);
+        sem_spinner.setAdapter(semAdaptor);
+        batch_spinner.setPrompt("Select Batch");
+        String[] batchlist = getResources().getStringArray(R.array.BatchNames);
+        ArrayAdapter<String> batchAdaptor = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,batchlist);
+        batch_spinner.setAdapter(batchAdaptor);
+    }
+
     private void createUserAccount(){
         if(checkUserInput()){
             createFirebaseAccount();
@@ -158,14 +168,15 @@ public class studentSignUp extends AppCompatActivity {
     }
     private void uploadUserDetails(){
         String name = studentName.getText().toString();
-        String batch = "BCA";
+        String batch = batch_spinner.getSelectedItem().toString();
+        String sem = sem_spinner.getSelectedItem().toString();
         String no =studentRollNo.getText().toString();
         int rollno =Integer.parseInt(no);
         database = FirebaseDatabase.getInstance();
-        Student student = new Student(name,batch,rollno);
-        DatabaseReference uuidRef= FirebaseDatabase.getInstance().getReference(firebaseAuth.getUid());
+        Student student = new Student(name,batch,rollno,sem);
+        DatabaseReference uuidRef= FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getUid());
         uuidRef.setValue(student);
         DatabaseReference rlist = database.getReference("Registered Students");
-        rlist.child(batch).push().setValue(name);
+        rlist.child(batch).child(sem).push().setValue(name);
     }
 }

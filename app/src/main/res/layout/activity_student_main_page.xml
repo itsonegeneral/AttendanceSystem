@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".StudentMainPage">
+
     <ProgressBar
         android:id="@+id/pgBar_studentMainPage"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 
     <include
@@ -20,7 +21,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="245dp"
+        android:layout_height="260dp"
         android:layout_below="@+id/studenttoolbar"
         android:background="#00bc10">
 
@@ -48,10 +49,22 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_studentMainRollno"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_studentMainBatchSem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/amaranth"
+                android:text="Batch"
+                android:layout_marginTop="2dp"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_studentMainRollno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="Roll No"
                 android:textColor="#000"
                 android:textSize="22sp"
@@ -68,7 +81,7 @@
         android:layout_height="80dp"
         android:layout_below="@id/studenttoolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="201dp"
+        android:layout_marginTop="218dp"
         android:padding="5dp"
         app:cardCornerRadius="9sp">
 
@@ -183,6 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_studentPercentage"
+                    android:textColor="@color/Black"
                     android:layout_centerInParent="true"
                     android:text="You are going good"
                     android:textSize="26sp" />

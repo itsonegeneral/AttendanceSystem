@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Attendance System</string>
-    <string-array name="studentsbca">
+    <string-array name="studentsbcas3">
         <item>Abin Biju</item>
         <item>Anandhu V</item>
         <item>Anandakrishnan S</item>
@@ -38,6 +38,18 @@
         <item>Sneha Samuel</item>
         <item>Jissa</item>
         <item>Ligy</item>
+    </string-array>
+    <string-array name="studentsbcas2">
+        <item>Arun s2</item>
+        <item>Gopan s2</item>
+    </string-array>
+    <string-array name="studentsbcas1">
+        <item>Arun s1</item>
+        <item>Gopan s1</item>
+    </string-array>
+    <string-array name="studentsbcas4">
+        <item>Arun s4</item>
+        <item>Gopan s4</item>
     </string-array>
 
 </resources>

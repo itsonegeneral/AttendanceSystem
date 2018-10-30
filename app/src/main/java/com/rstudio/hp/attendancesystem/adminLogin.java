@@ -88,14 +88,16 @@ public class adminLogin extends AppCompatActivity {
                         if(task.isSuccessful()){
                             isAdmin(email,pass);
                         }else{
-                            Toast.makeText(getApplicationContext(),"Error 401",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Error AE001",Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(adminLogin.this,studentLogin.class));
                         }
                     }
                 });
     }
     private void isAdmin(String email,String pass){
 
-        DatabaseReference dbRef  = FirebaseDatabase.getInstance().getReference("admins").child(firebaseAuth.getUid());
+        DatabaseReference dbRef  = FirebaseDatabase.getInstance().getReference("Admins").child(firebaseAuth.getUid());
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

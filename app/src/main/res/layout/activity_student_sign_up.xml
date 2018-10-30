@@ -82,10 +82,11 @@
                 android:textColor="#000"
                 android:textSize="18sp" />
 
-            <NumberPicker
-                android:id="@+id/numberpicker_sem"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp" />
+          <Spinner
+              android:id="@+id/spinnerSem"
+              android:layout_width="wrap_content"
+              android:layout_height="45dp">
+          </Spinner>
 
         </LinearLayout>
 
@@ -189,6 +190,6 @@
             android:textAllCaps="false"
             tools:textColor="#f1eeee" />
     </LinearLayout>
-    
+
 
 </RelativeLayout>

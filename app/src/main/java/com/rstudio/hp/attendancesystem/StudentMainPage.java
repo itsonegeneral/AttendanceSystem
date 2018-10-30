@@ -3,6 +3,7 @@ package com.rstudio.hp.attendancesystem;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,9 +47,10 @@ import javax.annotation.Nullable;
 public class StudentMainPage extends AppCompatActivity {
 
 
+    boolean doubleBackToExitPressedOnce = false;
     int unreadNotifications = 0;
     private static final String TAG = "StudentMainPage";
-    TextView welcometv, percentage, status, rollnoTV, presentDaysTv, totalDaysTv;
+    TextView welcometv, percentage, status, rollnoTV, presentDaysTv, totalDaysTv, batch_sem_tv;
     FirebaseAuth firebaseAuth;
     long i, mtotal;
     long rollno;
@@ -71,163 +75,164 @@ public class StudentMainPage extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "User null ", Toast.LENGTH_SHORT).show();
         } else {
             loadUserDetails();
-            loadNotifications();
+            //      loadNotifications();
         }
     }
 
-    private void loadNotifications() {
-        final String userID = firebaseAuth.getUid();
-        final FirebaseFirestore notif = FirebaseFirestore.getInstance();
-        firestore.collection("StudentNotifications").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Toast.makeText(StudentMainPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, e.getMessage());
-                    return;
-                }
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                    unreadNotifications =0;
-                    Toast.makeText(StudentMainPage.this, "Got " + documentSnapshot.getString("Notdate"), Toast.LENGTH_SHORT).show();
-                    final DocumentReference dR =
-                            notif.collection("StudentNotifications")
-                                    .document(documentSnapshot.getId())
-                                    .collection("UsersStatus")
-                                    .document(userID);
-                          dR.get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    try {
-                                        boolean ifRead = documentSnapshot.getBoolean("ifRead");
-                                        if (!ifRead) {
-                                            setNotificationUnread();
-                                            unreadNotifications++;
-                                        }
-                                    } catch (NullPointerException ne) {
-                                        Map<String, Object> rMap = new HashMap<>();
-                                        rMap.put("ifRead", false);
-                                        dR.set(rMap);
-                                        ne.printStackTrace();
-                                        setNotificationUnread();
-                                        unreadNotifications++;
-                                    }
-
-                                }
-                            });
-                    if (unreadNotifications == 0) {
-                        setNotificationRead();
-                    }else{
-                        Snackbar.make(findViewById(android.R.id.content),"You have "+unreadNotifications+ " unread notifications",Snackbar.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
 
     private void loadUserDetails() {
         pgBar.setVisibility(View.VISIBLE);
-        DatabaseReference totalRef = FirebaseDatabase.getInstance().getReference("Total Days");
-        totalRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mtotal = (long) dataSnapshot.getValue();
-                String total = Long.toString(mtotal);
-                totalDaysTv.setText(total);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        DatabaseReference sdRef = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid());
+        final DatabaseReference sdRef = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getUid());
         sdRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Student s = dataSnapshot.getValue(Student.class);
-                String name = s.name;
-                char[] n = name.toCharArray();
-                if (Character.isLowerCase(n[0])) {
-                    n[0] = Character.toUpperCase(n[0]);
-                    name = String.valueOf(n);
-                }
-                welcometv.setText(name);
-                rollno = s.rollno;
-                String rollNo = Long.toString(rollno);
-                rollnoTV.setText(rollNo);
-                rollnoRef = Long.toString(rollno);
-                try {
-                    DatabaseReference presentRef = FirebaseDatabase.getInstance().getReference().child("CASA").child("BCA").child(rollnoRef);
-                    presentRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long pDays = (long) dataSnapshot.getValue();
-                            double perc = (double) pDays / (double) mtotal;
-                            perc = perc * 100.0;
-                            int tper = (int) perc;
-                            String a = Long.toString(pDays);
-                            presentDaysTv.setText(a);
-                            if (perc < 75) {
-                                status.setText("You must attend more classes");
-                            } else if (perc > 90) {
-                                status.setText("Great !");
-                            } else {
-                                status.setText("You are going good");
-                            }
-                            String percent = Integer.toString(tper) + "%";
-                            percentage.setText(percent);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    pgBar.setVisibility(View.GONE);
-                } catch (NullPointerException npe) {
-                    DatabaseReference presentRef = FirebaseDatabase.getInstance().getReference().child("CASA").child("BCA");
-                    presentRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild(rollnoRef)) {
-
-                            } else {
-                                Snackbar.make(findViewById(android.R.id.content), "Your Registered roll no is not found on server ! Contact Developer", Snackbar.LENGTH_LONG).show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Snackbar.make(findViewById(android.R.id.content), databaseError.getMessage(), Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-                    pgBar.setVisibility(View.GONE);
+                if (dataSnapshot.exists()) {
+                    loadExistingUser(dataSnapshot);
+                } else {
+                    moveUserToNewDB(sdRef);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                pgBar.setVisibility(View.GONE);
             }
         });
 
     }
 
+
+    private void loadExistingUser(DataSnapshot dataSnapshot) {
+        Student s = dataSnapshot.getValue(Student.class);
+        String name = s.name;
+        String batch = s.batch;
+        String sem = s.sem;
+        char[] n = name.toCharArray();
+        if (Character.isLowerCase(n[0])) {
+            n[0] = Character.toUpperCase(n[0]);
+            name = String.valueOf(n);
+        }
+        batch_sem_tv.setText(batch + ", " + sem);
+        welcometv.setText(name);
+        rollno = s.rollno;
+        String rollNo = Long.toString(rollno);
+        rollnoTV.setText(rollNo);
+        rollnoRef = Long.toString(rollno);
+        loadTotalDays(batch, sem);
+        DatabaseReference presentRef = FirebaseDatabase.getInstance().getReference("CASA").child(batch).child(sem).child(rollnoRef);
+        presentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    long pDays = (long) dataSnapshot.getValue();
+                    double perc = (double) pDays / (double) mtotal;
+                    perc = perc * 100.0;
+                    int tper = (int) perc;
+                    String a = Long.toString(pDays);
+                    presentDaysTv.setText(a);
+                    if (perc < 75) {
+                        long bunked = mtotal - pDays;
+                        long total_to_bunked = bunked * 4;
+                        long to_attend = total_to_bunked - mtotal;
+                        String at_string = Long.toString(to_attend);
+                        percentage.setTextColor(Color.RED);
+                        status.setText("You must attend " + at_string + " classes");
+                    } else if (perc >= 75) {
+                        percentage.setTextColor(Color.parseColor("#00bc10"));
+                        long total = (mtotal / 3) * 4;
+                        long bunkable = total - mtotal;
+                        String bunk = Long.toString(bunkable);
+                        status.setText("Great! You can bunk " + bunk + " classes");
+                    } else {
+                        status.setText("You are going good");
+                    }
+                    String percent = Integer.toString(tper) + "%";
+                    percentage.setText(percent);
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), "Your Roll no is not found in database, Contact Admin",
+                            Snackbar.LENGTH_INDEFINITE).show();
+                    status.setText("Maybe your attendance isn't registered");
+                    status.setTextSize(15);
+                    percentage.setText("0%");
+                    percentage.setTextColor(Color.RED);
+                    presentDaysTv.setText("-");
+                    presentDaysTv.setTextColor(Color.RED);
+                    status.setTextColor(Color.RED);
+                }
+                pgBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                pgBar.setVisibility(View.GONE);
+                Log.d(TAG, databaseError.getMessage());
+            }
+        });
+
+    }
+
+    private void loadTotalDays(String bat, String sem) {
+        DatabaseReference totalRef = FirebaseDatabase.getInstance().getReference("Total Days").child(bat).child(sem);
+        totalRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    mtotal = (long) dataSnapshot.getValue();
+                    String total = Long.toString(mtotal);
+                    totalDaysTv.setText(total);
+                } else {
+                    totalDaysTv.setText("ERR01");
+                    totalDaysTv.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void moveUserToNewDB(final DatabaseReference newRef) {
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference(firebaseAuth.getUid());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Student student = dataSnapshot.getValue(Student.class);
+                    student.sem = "S3";
+                    newRef.setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                ref.removeValue();
+                            }
+                        }
+                    });
+                } else {
+                    Log.d(TAG, "No data found in DB moveUserToNewDB");
+                }
+                pgBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, "Move Data Failed");
+                pgBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
     private void setNotificationUnread() {
-      //  menuItem.setIcon(R.drawable.ic_notifications_unread);
+        //  menuItem.setIcon(R.drawable.ic_notifications_unread);
     }
 
     private void setNotificationRead() {
         try {
             menuItem.setIcon(R.drawable.ic_notifications_white_24dp);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             Log.d(TAG, e.getMessage());
         }
@@ -264,7 +269,7 @@ public class StudentMainPage extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Refreshing", Toast.LENGTH_SHORT).show();
                 try {
                     loadUserDetails();
-                    loadNotifications();
+                    // loadNotifications();
                 } catch (RuntimeException re) {
                     re.printStackTrace();
                     throw re;
@@ -280,7 +285,8 @@ public class StudentMainPage extends AppCompatActivity {
                 break;
             }
             case R.id.item_notifications: {
-                startActivity(new Intent(StudentMainPage.this, StudentNotification.class));
+                Toast.makeText(getApplicationContext(), "Coming Soon !", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(StudentMainPage.this, StudentNotification.class));
             }
         }
         return super.onOptionsItemSelected(item);
@@ -307,7 +313,77 @@ public class StudentMainPage extends AppCompatActivity {
         rollnoTV = findViewById(R.id.tv_studentMainRollno);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(firebaseUser.getUid());
+        batch_sem_tv = findViewById(R.id.tv_studentMainBatchSem);
     }
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
+    /*  private void loadNotifications() {
+        final String userID = firebaseAuth.getUid();
+        final FirebaseFirestore notif = FirebaseFirestore.getInstance();
+        firestore.collection("StudentNotifications").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Toast.makeText(StudentMainPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, e.getMessage());
+                    return;
+                }
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    unreadNotifications = 0;
+                    Toast.makeText(StudentMainPage.this, "Got " + documentSnapshot.getString("Notdate"), Toast.LENGTH_SHORT).show();
+                    final DocumentReference dR =
+                            notif.collection("StudentNotifications")
+                                    .document(documentSnapshot.getId())
+                                    .collection("UsersStatus")
+                                    .document(userID);
+                    dR.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    try {
+                                        boolean ifRead = documentSnapshot.getBoolean("ifRead");
+                                        if (!ifRead) {
+                                            setNotificationUnread();
+                                            unreadNotifications++;
+                                        }
+                                    } catch (NullPointerException ne) {
+                                        Map<String, Object> rMap = new HashMap<>();
+                                        rMap.put("ifRead", false);
+                                        dR.set(rMap);
+                                        ne.printStackTrace();
+                                        setNotificationUnread();
+                                        unreadNotifications++;
+                                    }
+
+                                }
+                            });
+                    if (unreadNotifications == 0) {
+                        setNotificationRead();
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content), "You have " + unreadNotifications + " unread notifications", Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+*/
 
 
 }
