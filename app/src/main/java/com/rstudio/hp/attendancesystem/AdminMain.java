@@ -88,8 +88,6 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     private void setStudentsList() {
-        String batch = getIntent().getExtras().getString("batch");
-        String sem = getIntent().getExtras().getString("sem");
         switch (batch) {
             case "BCA": {
                 bcaSwitch(sem);
@@ -114,7 +112,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                     Snackbar.make(findViewById(android.R.id.content), "Days updated", Snackbar.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(findViewById(android.R.id.content), "Total Days Column not found in DB", Snackbar.LENGTH_LONG).show();
-
+                    alertBuild();
                 }
             }
 
@@ -127,13 +125,13 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     private boolean dateCheck() {
-        dateKey = true;
+        dateKey = false;
         final ProgressDialog pg = new ProgressDialog(AdminMain.this);
         pg.setMessage("Validating Date");
         pg.setCanceledOnTouchOutside(false);
         pg.setCancelable(false);
         pg.show();
-        final DatabaseReference dbDate = FirebaseDatabase.getInstance().getReference("Dates");
+        final DatabaseReference dbDate = FirebaseDatabase.getInstance().getReference("Dates").child(batch).child(sem);
         dbDate.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -165,12 +163,11 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         db_roll.child(batch).child(sem).child(r).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                try {
+                if (dataSnapshot.exists()) {
                     long temp_at = (long) dataSnapshot.getValue();
-                    db_roll.child(batch).child(r).setValue((temp_at + 1));
-                } catch (RuntimeException re) {
-                    db_roll.child(batch).child(r).setValue(1);
-                    re.printStackTrace();
+                    db_roll.child(batch).child(sem).child(r).setValue((temp_at + 1));
+                } else {
+                    db_roll.child(batch).child(sem).child(r).setValue(1);
                 }
             }
 
@@ -183,7 +180,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     private void alertBuild() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(AdminMain.this);
         builder.setTitle("Total Days data not found in DB!!");
         builder.setMessage("Do you want to create new Column ?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
@@ -225,6 +222,8 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         rowItem = new ArrayList<>();
         submitbtn = findViewById(R.id.bt_adminMain_submitattendance);
         selectedDate = findViewById(R.id.tv_adminDateView);
+        batch = getIntent().getExtras().getString("batch");
+        sem = getIntent().getExtras().getString("sem");
     }
 
     private void setUpDatePicker() {
@@ -253,7 +252,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 return;
             }
             case "S2": {
-                studentsName = getResources().getStringArray(R.array.studentsbcas2);
+                // studentsName = getResources().getStringArray(R.array.studentsbcas2);
                 break;
             }
             case "S3": {
@@ -261,11 +260,11 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S4": {
-                studentsName = getResources().getStringArray(R.array.studentsbcas4);
+                //    studentsName = getResources().getStringArray(R.array.studentsbcas4);
                 break;
             }
             case "S5": {
-                // studentsName = getResources().getStringArray(R.array.studentsbcas5);
+                studentsName = getResources().getStringArray(R.array.studentsbcas5);
                 break;
             }
             case "S6": {

@@ -88,7 +88,7 @@ public class StudentNotification extends AppCompatActivity {
                 .setQuery(query,NotificationClass.class)
                 .build();
 
-        mAdaptor = new NotificationAdaptor(options,false);
+        mAdaptor = new NotificationAdaptor(options);
         RecyclerView recyclerView = findViewById(R.id.notifications_RecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

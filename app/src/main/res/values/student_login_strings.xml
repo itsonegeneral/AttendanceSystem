@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="forgot_pass">Forgot password ?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="no_account_yet">No Account?</string>
 </resources>

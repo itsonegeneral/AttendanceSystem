@@ -188,7 +188,7 @@
             android:background="@drawable/button_layout_custom"
             android:text="@string/create_account"
             android:textAllCaps="false"
-            tools:textColor="#f1eeee" />
+            tools:textColor="#ffffff" />
     </LinearLayout>
 
 

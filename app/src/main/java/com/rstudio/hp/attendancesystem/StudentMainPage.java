@@ -1,6 +1,7 @@
 package com.rstudio.hp.attendancesystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,21 +49,21 @@ import javax.annotation.Nullable;
 public class StudentMainPage extends AppCompatActivity {
 
 
-    boolean doubleBackToExitPressedOnce = false;
-    int unreadNotifications = 0;
+    private boolean doubleBackToExitPressedOnce = false;
+    private int unreadNotifications = 0;
     private static final String TAG = "StudentMainPage";
-    TextView welcometv, percentage, status, rollnoTV, presentDaysTv, totalDaysTv, batch_sem_tv;
-    FirebaseAuth firebaseAuth;
-    long i, mtotal;
-    long rollno;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    String batch, rollnoRef;
-    FirebaseUser firebaseUser;
-    ProgressBar pgBar;
-    Menu mMenu;
-    MenuItem menuItem;
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private TextView welcometv, percentage, status, rollnoTV, presentDaysTv, totalDaysTv, batch_sem_tv;
+    private FirebaseAuth firebaseAuth;
+    private long i, mtotal;
+    private long rollno;
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private String batch, rollnoRef;
+    private FirebaseUser firebaseUser;
+    private ProgressBar pgBar;
+    private Menu mMenu;
+    private MenuItem menuItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -314,7 +316,9 @@ public class StudentMainPage extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(firebaseUser.getUid());
         batch_sem_tv = findViewById(R.id.tv_studentMainBatchSem);
+        setUserImage();
     }
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -329,11 +333,36 @@ public class StudentMainPage extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
 
+    private void setUserImage(){
+        final ImageView imageView = findViewById(R.id.userImage);
+        final SharedPreferences pref = getSharedPreferences("user_gender", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = pref.edit();
+        if (pref.getString("gender", "male").equals("female")) {
+            imageView.setImageResource(R.drawable.user_female);
+        }else{
+            imageView.setImageResource(R.drawable.user);
+        }
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pref.getString("gender", "male").equals("male")){
+                    editor.putString("gender","female");
+                    imageView.setImageResource(R.drawable.user_female);
+                    editor.apply();
+                }else{
+                    editor.putString("gender","male");
+                    imageView.setImageResource(R.drawable.user);
+                    editor.apply();
+                }
+            }
+        });
+    }
     /*  private void loadNotifications() {
         final String userID = firebaseAuth.getUid();
         final FirebaseFirestore notif = FirebaseFirestore.getInstance();

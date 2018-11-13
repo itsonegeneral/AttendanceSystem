@@ -7,12 +7,7 @@
     android:background="#fff"
     tools:context=".StudentMainPage">
 
-    <ProgressBar
-        android:id="@+id/pgBar_studentMainPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+
 
 
     <include
@@ -31,11 +26,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/userImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20sp"
-                android:src="@drawable/user" />
+                android:src="@drawable/user"
+                android:elevation="3dp"/>
 
             <TextView
                 android:id="@+id/et_mainpage_studentname"
@@ -53,9 +50,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/amaranth"
                 android:text="Batch"
-                android:layout_marginTop="2dp"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -163,51 +160,72 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="180dp"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
-                    android:fontFamily="@font/averia_gruesa_libre"
-                    android:text="Your current attendace is "
-                    android:textColor="#000000"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/tv_studentPercentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView10"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/amita"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="75%"
-                    android:textSize="50sp" />
-
-                <TextView
-                    android:id="@+id/tv_studentAttendanceStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_studentPercentage"
-                    android:textColor="@color/Black"
-                    android:layout_centerInParent="true"
-                    android:text="You are going good"
-                    android:textSize="26sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="0dp">
 
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/averia_gruesa_libre"
+                        android:text="@string/your_attendance"
+                        android:textColor="#000000"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/tv_studentPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView10"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/amita"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="75%"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/tv_studentAttendanceStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_studentPercentage"
+                        android:layout_centerInParent="true"
+                        android:text="You are going good"
+                        android:textColor="@color/Black"
+                        android:textSize="22sp"
+                        android:layout_marginBottom="10dp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
         </ScrollView>
 
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/pgBar_studentMainPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>
 
