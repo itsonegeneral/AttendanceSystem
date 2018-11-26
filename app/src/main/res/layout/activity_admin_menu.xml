@@ -13,7 +13,7 @@
     <Button
         android:id="@+id/bt_adminMenu_ManageNotifications"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:text="@string/notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -24,6 +24,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:text="@string/register_attendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bt_adminMenu_ViewAttendance"
+        android:text="@string/view_attendance"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

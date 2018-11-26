@@ -1,5 +1,6 @@
 package com.rstudio.hp.attendancesystem;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,7 @@ import java.util.regex.Matcher;
 
 public class adminLogin extends AppCompatActivity {
 
+    ProgressDialog pgDialog;
     int chance=5;
     final int USERID=7907;
     final int pin = 8241;
@@ -42,6 +44,8 @@ public class adminLogin extends AppCompatActivity {
         loginbtn =findViewById(R.id.bt_adminSignin);
         _et_adminLoginPass = findViewById(R.id.et_adminLoginPass);
         _et_adminLoginUser = findViewById(R.id.et_adminLoginID);
+        pgDialog= new ProgressDialog(adminLogin.this);
+
 
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +85,9 @@ public class adminLogin extends AppCompatActivity {
         final String email  = _et_adminLoginUser.getText().toString().trim();
         final String pass = _et_adminLoginPass.getText().toString();
 
+        pgDialog.setMessage("Validating..");
+        pgDialog.show();
+
         firebaseAuth.signInWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -91,6 +98,7 @@ public class adminLogin extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Error AE001",Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(new Intent(adminLogin.this,studentLogin.class));
+                            pgDialog.dismiss();
                         }
                     }
                 });
@@ -102,12 +110,14 @@ public class adminLogin extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    pgDialog.dismiss();
                     finish();
                     startActivity(new Intent(adminLogin.this,AdminMenuActivity.class));
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                pgDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"Error 107",Toast.LENGTH_SHORT).show();
             }
         });

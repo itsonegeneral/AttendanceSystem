@@ -7,4 +7,5 @@
     <string name="notifications">Manage Notifications</string>
     <string name="register_attendance">Register Attendance</string>
     <string name="logout">Log Out</string>
+    <string name="view_attendance">View Attendance Status</string>
 </resources>

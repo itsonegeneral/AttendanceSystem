@@ -23,6 +23,7 @@ public class AdminMenuActivity extends AppCompatActivity {
     private Button mNotifications;
     private Button regAttendance;
     private Button logout;
+    private Button viewAttendace;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase firebaseDatabase =FirebaseDatabase.getInstance();
     private DatabaseReference db_ref = firebaseDatabase.getReference("Admins").child(firebaseAuth.getUid());
@@ -59,6 +60,15 @@ public class AdminMenuActivity extends AppCompatActivity {
             }
         });
 
+        viewAttendace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminMenuActivity.this,ViewAttendanceAdmin.class);
+                intent.putExtra("batch",batch);
+                intent.putExtra("sem",sem);
+                startActivity(intent);
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +87,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         mNotifications = findViewById(R.id.bt_adminMenu_ManageNotifications);
         regAttendance = findViewById(R.id.bt_adminMenu_registerAttendance);
         pgDialog = new ProgressDialog(AdminMenuActivity.this);
+        viewAttendace = findViewById(R.id.bt_adminMenu_ViewAttendance);
     }
     private void loadAccess(){
         pgDialog.setMessage("Loading");

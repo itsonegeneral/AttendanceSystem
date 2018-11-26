@@ -38,7 +38,7 @@ public class studentLogin extends AppCompatActivity {
     private static final String TAG = "studentLogin";
     EditText signinEmail_et, signinPass_et;
     TextView signup_tv, forgot_pass_tv, admin_login_tv;
-    Button login_bt;
+     Button login_bt;
     boolean admin = false;
     ProgressDialog pgDialog;
     ImageView art_image;
@@ -57,7 +57,7 @@ public class studentLogin extends AppCompatActivity {
             pgDialog.show();
             isAdmin();
         }
-        login_bt.setOnClickListener(new View.OnClickListener() {
+      login_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkOnline()) {
@@ -67,6 +67,7 @@ public class studentLogin extends AppCompatActivity {
                 }
             }
         });
+
         signup_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

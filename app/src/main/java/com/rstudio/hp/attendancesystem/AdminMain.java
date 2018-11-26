@@ -96,6 +96,9 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             case "B.Com": {
                 break;
             }
+            case "Bsc CS":{
+                bscSwitch(sem);
+            }
         }
     }
 
@@ -269,6 +272,34 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             }
             case "S6": {
                 //studentsName = getResources().getStringArray(R.array.studentsbcas6);
+                break;
+            }
+        }
+    }
+    private void bscSwitch(String sem) {
+        switch (sem) {
+            case "S1": {
+                studentsName = getResources().getStringArray(R.array.studentss1cs);
+                break;
+            }
+            case "S2": {
+               // studentsName = getResources().getStringArray(R.array.studentss2cs);
+                break;
+            }
+            case "S3": {
+              //  studentsName = getResources().getStringArray(R.array.studentss3cs);
+                break;
+            }
+            case "S4": {
+                //  studentsName = getResources().getStringArray(R.array.studentss4cs);
+                break;
+            }
+            case "S5": {
+               // studentsName = getResources().getStringArray(R.array.studentss5cs);
+                break;
+            }
+            case "S6": {
+                // studentsName = getResources().getStringArray(R.array.studentss6cs);
                 break;
             }
         }

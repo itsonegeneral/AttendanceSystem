@@ -39,10 +39,54 @@
         <item>Jissa</item>
         <item>Ligy</item>
     </string-array>
+
     <string-array name="studentsbcas1">
-        <item>Arun s1</item>
-        <item>Gopan s1</item>
+        <item>Abhijith M</item>
+        <item>Abhiram Krishna</item>
+        <item>Abhishek S Prasad</item>
+        <item>Ajith Kumar R</item>
+        <item>Akhil R</item>
+        <item>Akhil V</item>
+        <item>Akshaya R</item>
+        <item>Alfiya Hussain</item>
+        <item>Althaf Shajahan</item>
+        <item>Amal Sudhakar</item>
+        <item>Amal Raj A R</item>
+        <item>Amal V</item>
+        <item>Amith Mohammed</item>
+        <item>Anandhu S Kumar</item>
+        <item>Anandhu V</item>
+        <item>Anandhuraj R A</item>
+        <item>Anitha S</item>
+        <item>Aravind R</item>
+        <item>Arjun V R</item>
+        <item>Arya Bhaskar B</item>
+        <item>Arya Manoj</item>
+        <item>Arya S</item>
+        <item>Aswathy R</item>
+        <item>Athul Aji</item>
+        <item>Athulya P</item>
+        <item>Devika Prabhakar</item>
+        <item>Gopika A G</item>
+        <item>Jiby George Thomas</item>
+        <item>Lekshmi Prasad P.S</item>
+        <item>Malavika Somarajan</item>
+        <item>Mefin Mathew</item>
+        <item>Nandu Krishnan</item>
+        <item>Nayana Prakash</item>
+        <item>Neha Mariam Daniel</item>
+        <item>Nidhin Raj R</item>
+        <item>Niranjana Krishnan</item>
+        <item>Pooja Prasasd</item>
+        <item>Presanth S Nair</item>
+        <item>Reshmi R</item>
+        <item>Sam K Thampan</item>
+        <item>Shifana S</item>
+        <item>Surya A S</item>
+        <item>Vrinda A</item>
+
     </string-array>
+
     <string-array name="studentsbcas5">
         <item>Arun s4</item>
         <item>Gopan s4</item>

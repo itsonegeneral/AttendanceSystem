@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_marginBottom="3dp">
+
+    <TextView
+        android:id="@+id/listAdaptor_rollno"
+        android:textSize="24sp"
+        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+        android:text="1."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/listAdaptor_Name"
+        android:textSize="24sp"
+        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+        android:text="Name"
+        android:layout_toStartOf="@+id/listAdaptor_percentage"
+        android:layout_toEndOf="@+id/listAdaptor_rollno"
+        android:layout_width="match_parent"
+        android:paddingStart="3dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/listAdaptor_percentage"
+        android:textSize="24sp"
+        style="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+        android:text="80%"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity=""/>
+
+</RelativeLayout>
