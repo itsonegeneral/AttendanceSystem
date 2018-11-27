@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,9 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tapadoo.alerter.Alerter;
 
 public class AdminMenuActivity extends AppCompatActivity {
 
+    private CardView update_card;
     private Button mNotifications;
     private Button regAttendance;
     private Button logout;
@@ -39,6 +44,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         setUpToolbar();
         setValues();
         loadAccess();
+        checkVersion();
         logout = findViewById(R.id.bt_logout_admin);
 
         mNotifications.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +90,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Admin Tools");
     }
     private void setValues(){
+        update_card = findViewById(R.id.cardView_Update);
         mNotifications = findViewById(R.id.bt_adminMenu_ManageNotifications);
         regAttendance = findViewById(R.id.bt_adminMenu_registerAttendance);
         pgDialog = new ProgressDialog(AdminMenuActivity.this);
@@ -113,4 +120,28 @@ public class AdminMenuActivity extends AppCompatActivity {
             }
         });
     }
+    private void checkVersion(){
+        final int version = 5;
+        DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
+        vc.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    long mVer = dataSnapshot.getValue(Long.class);
+                    if(mVer>version){
+                        Animation anim = AnimationUtils.loadAnimation(AdminMenuActivity.this,R.anim.move_up);
+                        update_card.setVisibility(View.VISIBLE);
+                        anim.setDuration(700);
+                        update_card.startAnimation(anim);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

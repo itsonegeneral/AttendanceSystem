@@ -18,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ViewAttendanceAdmin extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
     ListView listView;
     String sem ,batch;
     private String[] namelist ;
-    public String[] percentage;
+    public int[] percentage;
     private int totalDays;
     public ProgressBar pgBar;
     ViewAttendanceAdaptor viewAdaptor;
@@ -48,8 +50,7 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                         long mAttend = snapshot.getValue(Long.class);
                         double percent = (  (double)mAttend/ (double)totalDays  )*100;
-                        int t=(int) percent ;
-                        percentage[i] = Integer.toString(t);
+                        percentage[i] = (int) percent ;
                         Log.d(TAG, "Added" + percentage[i]+ " " + i) ;
                         i++;
                     }
@@ -74,9 +75,11 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
         listView = findViewById(R.id.list_viewAttendance);
         sem = getIntent().getExtras().getString("sem");
         batch = getIntent().getExtras().getString("batch");
-        namelist = getResources().getStringArray(R.array.studentsbcas3);
+        namelist = getResources().getStringArray(R.array.studentsbcas3); //Add batch switch here
+        Arrays.sort(namelist);
+
         viewAdaptor = new ViewAttendanceAdaptor(this,namelist,percentage);
-        percentage = new String[100];
+        percentage = new int[100];
         pgBar= findViewById(R.id.pgBar_viewAttendance);
     }
 

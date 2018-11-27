@@ -60,7 +60,10 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             ItemStudentAttendance student = new ItemStudentAttendance(studentsName[i], true);
             rowItem.add(student);
         }
-        //  rowItem.get(34).setSelected(false);
+
+        if (sem.equals("S3") && batch.equals("BCA")) {
+            rowItem.get(34).setSelected(false);     //Uncheck Vipin All the time
+        }
         cAdapter = new CustomAdapter(rowItem, getApplicationContext());
         list.setAdapter(cAdapter);
 
@@ -96,7 +99,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             case "B.Com": {
                 break;
             }
-            case "Bsc CS":{
+            case "Bsc CS": {
                 bscSwitch(sem);
             }
         }
@@ -276,6 +279,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             }
         }
     }
+
     private void bscSwitch(String sem) {
         switch (sem) {
             case "S1": {
@@ -283,11 +287,11 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S2": {
-               // studentsName = getResources().getStringArray(R.array.studentss2cs);
+                // studentsName = getResources().getStringArray(R.array.studentss2cs);
                 break;
             }
             case "S3": {
-              //  studentsName = getResources().getStringArray(R.array.studentss3cs);
+                //  studentsName = getResources().getStringArray(R.array.studentss3cs);
                 break;
             }
             case "S4": {
@@ -295,7 +299,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S5": {
-               // studentsName = getResources().getStringArray(R.array.studentss5cs);
+                // studentsName = getResources().getStringArray(R.array.studentss5cs);
                 break;
             }
             case "S6": {

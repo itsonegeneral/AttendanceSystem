@@ -10,10 +10,11 @@
     <include
         layout="@layout/admintoolbarmain"
         android:id="@+id/toolbar_AdminMenuPage"/>
+    <include layout="@layout/update_cardview"/>
     <Button
         android:id="@+id/bt_adminMenu_ManageNotifications"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:text="@string/notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

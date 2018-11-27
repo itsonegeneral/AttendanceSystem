@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="your_attendance">Your current attendance is</string>
+    <string name="update_available">New Version is Available ! \nPlease Click to update</string>
 </resources>

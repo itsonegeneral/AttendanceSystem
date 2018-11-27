@@ -3,12 +3,14 @@ package com.rstudio.hp.attendancesystem;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,7 +52,7 @@ import javax.annotation.Nullable;
 
 public class StudentMainPage extends AppCompatActivity {
 
-
+    private CardView update_card;
     private boolean doubleBackToExitPressedOnce = false;
     private int unreadNotifications = 0;
     private static final String TAG = "StudentMainPage";
@@ -71,6 +75,7 @@ public class StudentMainPage extends AppCompatActivity {
         setContentView(R.layout.activity_student_main_page);
         setToolbar();
         setUpValues();
+        versionCheck();
         FirebaseUser uaer = FirebaseAuth.getInstance().getCurrentUser();
         setActionBarColor();
         if (uaer == null) {
@@ -79,6 +84,38 @@ public class StudentMainPage extends AppCompatActivity {
             loadUserDetails();
             //      loadNotifications();
         }
+
+
+    }
+
+    private void versionCheck() {
+        DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
+        final int VERSION = 5;
+        vc.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    long mVersion = dataSnapshot.getValue(Long.class);
+                    if(mVersion>VERSION){
+                        Animation anim = AnimationUtils.loadAnimation(StudentMainPage.this,R.anim.move_up);
+                        update_card.setVisibility(View.VISIBLE);
+                        anim.setDuration(700);
+                        update_card.startAnimation(anim);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        update_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse("https://play.google.com/store/apps/details?id=com.rstudio.hp.attendancesystem&hl=en"));
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -303,6 +340,7 @@ public class StudentMainPage extends AppCompatActivity {
     }
 
     private void setUpValues() {
+        update_card = findViewById(R.id.cardView_Update);
         status = findViewById(R.id.tv_studentAttendanceStatus);
         percentage = findViewById(R.id.tv_studentPercentage);
         pgBar = findViewById(R.id.pgBar_studentMainPage);
