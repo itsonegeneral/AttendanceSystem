@@ -5,12 +5,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/new_launcher_norm"
+        android:icon="@drawable/launcher_normal"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/new_launcher_round"
+        android:roundIcon="@drawable/launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="icon">
+        tools:replace="icon"
+        tools:ignore="GoogleAppIndexingWarning">
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -65,9 +66,10 @@
         <activity
             android:name=".AdminMenuActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ViewAttendanceAdmin"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".AdminMenuActivity"/>
+        <activity
+            android:name=".ViewAttendanceAdmin"
+            android:parentActivityName=".AdminMenuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

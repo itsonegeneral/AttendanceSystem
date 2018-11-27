@@ -82,11 +82,10 @@
                 android:textColor="#000"
                 android:textSize="18sp" />
 
-          <Spinner
-              android:id="@+id/spinnerSem"
-              android:layout_width="wrap_content"
-              android:layout_height="45dp">
-          </Spinner>
+            <Spinner
+                android:id="@+id/spinnerSem"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"></Spinner>
 
         </LinearLayout>
 
@@ -188,7 +187,7 @@
             android:background="@drawable/button_layout_custom"
             android:text="@string/create_account"
             android:textAllCaps="false"
-            tools:textColor="#ffffff" />
+            android:textColor="#fff" />
     </LinearLayout>
 
 
