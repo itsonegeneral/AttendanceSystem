@@ -268,7 +268,7 @@ public class StudentMainPage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.parseColor("#3f9f43"));
+            window.setStatusBarColor(Color.parseColor("#057817"));
         }
     }
 

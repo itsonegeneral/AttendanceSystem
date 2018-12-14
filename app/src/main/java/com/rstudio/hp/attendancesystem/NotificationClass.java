@@ -10,12 +10,11 @@ public class NotificationClass {
 
     }
 
-    public NotificationClass( String nottitle,String notdescription, String notdate, int priority,boolean readStatus) {
+    public NotificationClass( String nottitle,String notdescription, String notdate, int priority) {
         Notdescription = notdescription;
         Notdate = notdate;
         Nottitle = nottitle;
         this.priority = priority;
-        this.readStatus = readStatus;
     }
 
     public boolean getReadStatus(){
