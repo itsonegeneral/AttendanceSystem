@@ -8,40 +8,80 @@
     tools:context=".AdminMenuActivity">
 
     <include
-        layout="@layout/admintoolbarmain"
-        android:id="@+id/toolbar_AdminMenuPage"/>
-    <include layout="@layout/update_cardview"/>
-    <Button
-        android:id="@+id/bt_adminMenu_ManageNotifications"
+        android:id="@+id/toolbar_AdminMenuPage"
+        layout="@layout/admintoolbarmain" />
+
+    <include layout="@layout/update_cardview" />
+
+    <RelativeLayout
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:text="@string/notifications"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/bt_adminMenu_ManageNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_admin_menu"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="2"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:text="@string/notifications"
+                android:textColor="#fff" />
 
 
-    <Button
-        android:id="@+id/bt_adminMenu_registerAttendance"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:text="@string/register_attendance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/bt_adminMenu_registerAttendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_admin_menu"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="2"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:text="@string/register_attendance"
+                android:textAllCaps="true"
+                android:textColor="#fff" />
 
-    <Button
-        android:id="@+id/bt_adminMenu_ViewAttendance"
-        android:text="@string/view_attendance"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/bt_adminMenu_ViewAttendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_admin_menu"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="2"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:text="@string/view_attendance"
+                android:textColor="#fff" />
 
-    <Button
-        android:id="@+id/bt_logout_admin"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/bt_logout_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_admin_menu"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="2"
+                android:shadowDy="1"
+                android:shadowRadius="10"
+                android:text="@string/logout"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </RelativeLayout>
+
 
 </LinearLayout>

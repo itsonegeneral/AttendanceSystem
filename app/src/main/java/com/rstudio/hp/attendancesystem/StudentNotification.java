@@ -39,10 +39,7 @@ public class StudentNotification extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     CollectionReference notRef = firestore.collection("StudentNotifications");
-    TextView test;
-    boolean readNot;
     NotificationAdaptor mAdaptor;
-    ArrayList<Integer> unreadPositions;
     String userID;
 
     @Override
@@ -56,33 +53,9 @@ public class StudentNotification extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         userID = mAuth.getUid();
-        notRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e!=null){
 
-                }else {
-                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        DocumentReference docRef = notRef.document(documentSnapshot.getId())
-                                .collection("UsersStatus")
-                                .document(userID);
-                        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                try{
-                                    boolean read = documentSnapshot.getBoolean("ifRead");
-                                }catch(NullPointerException e){
-
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
     }
     private void loadData(){
-        final String userID = firebaseAuth.getUid();
         Query query = notRef;
         FirestoreRecyclerOptions<NotificationClass> options = new FirestoreRecyclerOptions.Builder<NotificationClass>()
                 .setQuery(query,NotificationClass.class)

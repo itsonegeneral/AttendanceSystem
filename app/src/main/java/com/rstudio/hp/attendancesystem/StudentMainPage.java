@@ -264,24 +264,11 @@ public class StudentMainPage extends AppCompatActivity {
         });
     }
 
-    private void setNotificationUnread() {
-        //  menuItem.setIcon(R.drawable.ic_notifications_unread);
-    }
-
-    private void setNotificationRead() {
-        try {
-            menuItem.setIcon(R.drawable.ic_notifications_white_24dp);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            Log.d(TAG, e.getMessage());
-        }
-    }
-
     private void setActionBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.LTGRAY);
+            window.setStatusBarColor(Color.parseColor("#3f9f43"));
         }
     }
 
@@ -324,8 +311,8 @@ public class StudentMainPage extends AppCompatActivity {
                 break;
             }
             case R.id.item_notifications: {
-                Toast.makeText(getApplicationContext(), "Coming Soon !", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(StudentMainPage.this, StudentNotification.class));
+                //Toast.makeText(getApplicationContext(), "Coming Soon !", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StudentMainPage.this, StudentNotification.class));
             }
         }
         return super.onOptionsItemSelected(item);

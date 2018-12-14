@@ -2,10 +2,13 @@
 <resources>
     <string name="swipe_to_delete_or">Swipe to delete or add a new notification</string>
     <string name="title">Titile</string>
+    <string name="select_date">Select Date</string>
     <string name="description">Description</string>
+    <string name="send_notif">Send Notification</string>
     <string name="selection_date">Date has been automatically selected</string>
     <string name="notifications">Manage Notifications</string>
     <string name="register_attendance">Register Attendance</string>
     <string name="logout">Log Out</string>
+    <string name="date">Date</string>
     <string name="view_attendance">View Attendance Status</string>
 </resources>

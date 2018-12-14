@@ -2,6 +2,7 @@ package com.rstudio.hp.attendancesystem;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,6 +48,13 @@ public class AdminMenuActivity extends AppCompatActivity {
         checkVersion();
         logout = findViewById(R.id.bt_logout_admin);
 
+        update_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse("https://play.google.com/store/apps/details?id=com.rstudio.hp.attendancesystem&hl=en"));
+                startActivity(i);
+            }
+        });
         mNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -57,8 +57,5 @@ public class NotificationAdaptor extends FirestoreRecyclerAdapter<NotificationCl
             description = v.findViewById(R.id.tv_Description_NotificationLayout);
         }
 
-        public void changeColour(){
-            cardView.setBackgroundColor(Color.parseColor("#70c9e4"));
-        }
     }
 }
