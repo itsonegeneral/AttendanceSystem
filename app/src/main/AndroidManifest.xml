@@ -10,8 +10,8 @@
         android:roundIcon="@drawable/launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="icon"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="icon">
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -57,9 +57,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CreateNewNotification"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:parentActivityName=".AdminMenuActivity"/>
+            android:parentActivityName=".AdminMenuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ManageNotificationsAdmin"
             android:launchMode="singleTop"
@@ -72,6 +72,9 @@
             android:name=".ViewAttendanceAdmin"
             android:parentActivityName=".AdminMenuActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".StudentProfile"
+            android:parentActivityName=".StudentMainPage"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

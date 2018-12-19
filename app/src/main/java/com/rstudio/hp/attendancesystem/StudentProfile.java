@@ -1,0 +1,193 @@
+package com.rstudio.hp.attendancesystem;
+
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class StudentProfile extends AppCompatActivity {
+
+    private ImageView bt_editName, bt_editSem;
+    private TextView tv_UserName;
+    private EditText et_editName;
+    boolean isNameEditing = false, isSemEditing = false;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private DatabaseReference db_ref = FirebaseDatabase.getInstance().getReference("Users");
+    private ProgressBar pgBar;
+    private String userName, userSem;
+    private Student student;
+    private Spinner semSpinner;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_student_profile);
+
+        setValues();
+        setToolbar();
+        loadUserDetails();
+        setListeners();
+        setActionBarColor();
+
+    }
+
+    private void setListeners() {
+        bt_editName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isNameEditing) {
+                    tv_UserName.setVisibility(View.VISIBLE);
+                    bt_editName.setBackgroundResource(R.drawable.ic_edit_black_24dp);
+                    et_editName.setVisibility(View.GONE);
+                    isNameEditing = false;
+                    if (et_editName.getText().toString().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_SHORT).show();
+                    } else if (!et_editName.getText().toString().equals(userName)) {
+                        updateName(et_editName.getText().toString());
+                    }
+                } else {
+                    tv_UserName.setVisibility(View.INVISIBLE);
+                    et_editName.setVisibility(View.VISIBLE);
+                    bt_editName.setBackgroundResource(R.drawable.ic_done_black_24dp);
+                    isNameEditing = true;
+                }
+            }
+        });
+
+        bt_editSem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSemEditing) {
+                    semSpinner.setEnabled(false);
+                    bt_editSem.setBackgroundResource(R.drawable.ic_edit_black_24dp);
+                    if (!semSpinner.getSelectedItem().toString().equals(student.sem)) {
+                        updateSem(semSpinner.getSelectedItem().toString());
+                    }else{
+                        Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_SHORT).show();
+                    }
+
+                    isSemEditing = false;
+                } else {
+                    bt_editSem.setBackgroundResource(R.drawable.ic_done_black_24dp);
+                    semSpinner.setEnabled(true);
+                    isSemEditing = true;
+                }
+            }
+        });
+    }
+
+    private void loadUserDetails() {
+        pgBar.setVisibility(View.VISIBLE);
+        String uuid = mAuth.getUid();
+        db_ref.child(uuid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    student = dataSnapshot.getValue(Student.class);
+                    userName = student.name;
+                    userSem = student.sem;
+                    semSpinner.setPrompt(userSem);
+                    et_editName.setHint(userName);
+                    tv_UserName.setText(userName);
+
+                }
+                pgBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                pgBar.setVisibility(View.GONE);
+            }
+        });
+
+        String[] arr = getResources().getStringArray(R.array.sem_array);
+        for(int i=arr.length; i> 1;i++){
+            arr[i]=arr[i-1];
+        }
+        arr[0] = userSem;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arr);
+        semSpinner.setAdapter(adapter);
+        semSpinner.setEnabled(false);
+    }
+
+
+    private void updateName(final String newName) {
+        student.name = newName;
+        db_ref.child(mAuth.getUid()).setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Changes Updated", Toast.LENGTH_SHORT).show();
+                    tv_UserName.setText(newName);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed to Update", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void updateSem(final String newSem) {
+        student.sem = newSem;
+        db_ref.child(mAuth.getUid()).setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Sem Updated", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed to Update", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void setValues() {
+        semSpinner = findViewById(R.id.spinner_studentProfileSem);
+        bt_editSem = findViewById(R.id.ic_editUserSem);
+        pgBar = findViewById(R.id.pgBar_studentProfile);
+        bt_editName = findViewById(R.id.ic_editUserName);
+        tv_UserName = findViewById(R.id.tv_studentNameProfile);
+        et_editName = findViewById(R.id.et_updateProfileName);
+        et_editName.setVisibility(View.GONE);
+        pgBar.setVisibility(View.GONE);
+    }
+
+    private void setToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar_studentProfile);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setActionBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#057817"));
+        }
+    }
+}

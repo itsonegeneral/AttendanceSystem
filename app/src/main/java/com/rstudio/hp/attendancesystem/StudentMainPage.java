@@ -94,16 +94,17 @@ public class StudentMainPage extends AppCompatActivity {
         vc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     long mVersion = dataSnapshot.getValue(Long.class);
-                    if(mVersion>VERSION){
-                        Animation anim = AnimationUtils.loadAnimation(StudentMainPage.this,R.anim.move_up);
+                    if (mVersion > VERSION) {
+                        Animation anim = AnimationUtils.loadAnimation(StudentMainPage.this, R.anim.move_up);
                         update_card.setVisibility(View.VISIBLE);
                         anim.setDuration(700);
                         update_card.startAnimation(anim);
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -112,7 +113,7 @@ public class StudentMainPage extends AppCompatActivity {
         update_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW,Uri.parse("https://play.google.com/store/apps/details?id=com.rstudio.hp.attendancesystem&hl=en"));
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.rstudio.hp.attendancesystem&hl=en"));
                 startActivity(i);
             }
         });
@@ -180,7 +181,8 @@ public class StudentMainPage extends AppCompatActivity {
                     } else if (perc >= 75) {
                         percentage.setTextColor(Color.parseColor("#00bc10"));
                         long total = (mtotal / 3) * 4;
-                        long bunkable = total - mtotal;
+                        long absent = mtotal - pDays;
+                        long bunkable = total - mtotal - absent;
                         String bunk = Long.toString(bunkable);
                         status.setText("Great! You can bunk " + bunk + " classes");
                     } else {
@@ -293,13 +295,7 @@ public class StudentMainPage extends AppCompatActivity {
             }
             case R.id.item_refresh_page: {
                 Toast.makeText(getApplicationContext(), "Refreshing", Toast.LENGTH_SHORT).show();
-                try {
-                    loadUserDetails();
-                    // loadNotifications();
-                } catch (RuntimeException re) {
-                    re.printStackTrace();
-                    throw re;
-                }
+                loadUserDetails();
                 break;
             }
             case R.id.item_settingsmenu: {
@@ -307,7 +303,7 @@ public class StudentMainPage extends AppCompatActivity {
                 break;
             }
             case R.id.item_profilemenu: {
-                Toast.makeText(StudentMainPage.this, "Under development", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(StudentMainPage.this, StudentProfile.class));
                 break;
             }
             case R.id.item_notifications: {
@@ -363,25 +359,25 @@ public class StudentMainPage extends AppCompatActivity {
         }, 2000);
     }
 
-    private void setUserImage(){
+    private void setUserImage() {
         final ImageView imageView = findViewById(R.id.userImage);
         final SharedPreferences pref = getSharedPreferences("user_gender", MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
         if (pref.getString("gender", "male").equals("female")) {
             imageView.setImageResource(R.drawable.user_female);
-        }else{
+        } else {
             imageView.setImageResource(R.drawable.user);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pref.getString("gender", "male").equals("male")){
-                    editor.putString("gender","female");
+                if (pref.getString("gender", "male").equals("male")) {
+                    editor.putString("gender", "female");
                     imageView.setImageResource(R.drawable.user_female);
                     editor.apply();
-                }else{
-                    editor.putString("gender","male");
+                } else {
+                    editor.putString("gender", "male");
                     imageView.setImageResource(R.drawable.user);
                     editor.apply();
                 }

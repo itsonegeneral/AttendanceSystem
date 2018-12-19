@@ -75,12 +75,25 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
         listView = findViewById(R.id.list_viewAttendance);
         sem = getIntent().getExtras().getString("sem");
         batch = getIntent().getExtras().getString("batch");
-        namelist = getResources().getStringArray(R.array.studentsbcas3); //Add batch switch here
+        batchSwitch();
         Arrays.sort(namelist);
-
         viewAdaptor = new ViewAttendanceAdaptor(this,namelist,percentage);
         percentage = new int[100];
         pgBar= findViewById(R.id.pgBar_viewAttendance);
+    }
+
+    private void batchSwitch() {
+
+        switch (batch) {
+            case "BCA": {
+                bcaSwitch();
+                break;
+            }
+            case "Bsc CS": {
+                bscSwitch();
+            }
+        }
+
     }
 
     private void getTotalDays(){
@@ -100,6 +113,65 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void bcaSwitch() {
+        switch (sem) {
+            case "S1": {
+               namelist = getResources().getStringArray(R.array.students2018bca);
+                break;
+            }
+            case "S2": {
+                // namelist = getResources().getStringArray(R.array.studentsbcas2);
+                break;
+            }
+            case "S3": {
+                namelist = getResources().getStringArray(R.array.students2017bca);
+                break;
+            }
+            case "S4": {
+                //    namelist = getResources().getStringArray(R.array.studentsbcas4);
+                break;
+            }
+            case "S5": {
+                namelist = getResources().getStringArray(R.array.students2016bca);
+                break;
+            }
+            case "S6": {
+                //namelist = getResources().getStringArray(R.array.studentsbcas6);
+                break;
+            }
+        }
+    }
+
+
+    private void bscSwitch() {
+        switch (sem) {
+            case "S1": {
+                namelist = getResources().getStringArray(R.array.students2018cs);
+                break;
+            }
+            case "S2": {
+                // namelist = getResources().getStringArray(R.array.studentss2cs);
+                break;
+            }
+            case "S3": {
+                //  namelist = getResources().getStringArray(R.array.studentss3cs);
+                break;
+            }
+            case "S4": {
+                //  namelist = getResources().getStringArray(R.array.studentss4cs);
+                break;
+            }
+            case "S5": {
+                // namelist= getResources().getStringArray(R.array.studentss5cs);
+                break;
+            }
+            case "S6": {
+                // namelist= getResources().getStringArray(R.array.studentss6cs);
+                break;
+            }
+        }
     }
     private void setUpToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar_adminViewAttendance);

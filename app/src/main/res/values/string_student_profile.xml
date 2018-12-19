@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sample_name">Sample Name</string>
+    <string name="sem">Sem</string>
+    <string name="other_settings">Other Settings</string>
+
+</resources>

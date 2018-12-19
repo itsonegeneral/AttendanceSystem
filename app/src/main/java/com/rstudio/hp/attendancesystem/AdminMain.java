@@ -96,9 +96,6 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 bcaSwitch(sem);
                 break;
             }
-            case "B.Com": {
-                break;
-            }
             case "Bsc CS": {
                 bscSwitch(sem);
             }
@@ -202,7 +199,10 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(AdminMain.this, "Day not added", Toast.LENGTH_SHORT).show();
-                // Do nothing
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Dates")
+                        .child(batch)
+                        .child(sem).child(date);
+                ref.removeValue();
                 dialog.dismiss();
             }
         });
@@ -254,7 +254,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     private void bcaSwitch(String sem) {
         switch (sem) {
             case "S1": {
-                studentsName = getResources().getStringArray(R.array.studentsbcas1);
+                studentsName = getResources().getStringArray(R.array.students2018bca);
                 return;
             }
             case "S2": {
@@ -262,7 +262,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S3": {
-                studentsName = getResources().getStringArray(R.array.studentsbcas3);
+                studentsName = getResources().getStringArray(R.array.students2017bca);
                 break;
             }
             case "S4": {
@@ -270,7 +270,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S5": {
-                studentsName = getResources().getStringArray(R.array.studentsbcas5);
+                studentsName = getResources().getStringArray(R.array.students2016bca);
                 break;
             }
             case "S6": {
@@ -283,7 +283,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     private void bscSwitch(String sem) {
         switch (sem) {
             case "S1": {
-                studentsName = getResources().getStringArray(R.array.studentss1cs);
+                studentsName = getResources().getStringArray(R.array.students2018cs);
                 break;
             }
             case "S2": {

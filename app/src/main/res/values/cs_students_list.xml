@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="studentss1cs">
+    <string-array name="students2018cs">
         <item>Abin S</item>
         <item>Aisha M B</item>orld
         <item>Aiswarya A</item>
@@ -17,8 +17,45 @@
         <item>Anoop Roy</item>
         <item>Anson Alex</item>
         <item>Arjun P M</item>
-        
+        <item>Arun Prakash</item>
+        <item>Arun Prakash</item>
+        <item>Arun Raj</item>
+        <item>Ashiya Beegum A</item>
+        <item>Aswan Aji</item>
+        <item>Aswin S</item>
+        <item>Beema N</item>
+        <item>Chippy Bright</item>
+        <item>Darshana R Babu</item>
+        <item>Don G Madamannil</item>
+        <item>Harikrishnan R Pillai</item>
+        <item>Haritha M</item>
+        <item>Jaison J</item>
+        <item>Jonu M Geevarghese</item>
+        <item>Kavya Krishnan K R</item>
+        <item>Manju J M</item>
+        <item>Midhun M</item>
+        <item>Minimol M</item>
+        <item>Naunith C A</item>
+        <item>Rekhalekshmi R</item>
+        <item>Reshmi Ram Goapal</item>
+        <item>Saikrishnan C Nair</item>
+        <item>Sarath S Sivanandan</item>
+        <item>Sidhardh S Vijai</item>
+        <item>Sneha Anna Samuel</item>
+        <item>Sneha Raj</item>
+        <item>Sneha Rajeev</item>
+        <item>Sreeleksmi M</item>
+        <item>Sreeshma R S</item>
+        <item>Surya G S</item>
 
 
+
+
+
+
+    </string-array>
+
+    <string-array name="students2016cs">
+        <item>1</item>
     </string-array>
 </resources>
