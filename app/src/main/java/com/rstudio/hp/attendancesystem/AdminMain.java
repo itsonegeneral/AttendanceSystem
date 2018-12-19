@@ -41,7 +41,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
     TextView selectedDate;
     DatabaseReference db_stud, db_total;
     String date, batch, sem;
-    boolean flag = false, dateKey = false;
+    boolean flag = false, dateKey = false, dbKey = false, tdbKey;
     private static final String TAG = "AdminMain";
 
     @Override
@@ -72,22 +72,12 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(View view) {
                 if (!selectedDate.getText().toString().equals("Select date")) {
-                    if (dateCheck()) {
-                        incrementDay();
-                        ArrayList<ItemStudentAttendance> selList = cAdapter.dataSet;
-                        for (int i = 0; i < selList.size(); i++) {
-                            ItemStudentAttendance it = selList.get(i);
-                            if (it.isSelected()) {
-                                updateStudAttendance((i + 1));
-                            }
-                        }
-                    }
+                    dateCheck();
                 } else {
                     Snackbar.make(findViewById(android.R.id.content), "Select date", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
-        // setupDatabase();
     }
 
     private void setStudentsList() {
@@ -102,33 +92,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         }
     }
 
-
-    private void incrementDay() {
-        db_total = FirebaseDatabase.getInstance().getReference("Total Days").child(batch).child(sem);
-        db_total.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    long getTotal = (long) dataSnapshot.getValue();
-                    long setTotal = getTotal + 1;
-                    db_total.setValue(setTotal);
-                    Snackbar.make(findViewById(android.R.id.content), "Days updated", Snackbar.LENGTH_SHORT).show();
-                } else {
-                    Snackbar.make(findViewById(android.R.id.content), "Total Days Column not found in DB", Snackbar.LENGTH_LONG).show();
-                    alertBuild();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d(TAG, databaseError.getMessage());
-            }
-        });
-
-    }
-
-    private boolean dateCheck() {
-        dateKey = false;
+    private void dateCheck() {
         final ProgressDialog pg = new ProgressDialog(AdminMain.this);
         pg.setMessage("Validating Date");
         pg.setCanceledOnTouchOutside(false);
@@ -141,12 +105,14 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 if (dataSnapshot.hasChild(date)) {
                     pg.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), "Attendance has been already sumbitted", Snackbar.LENGTH_LONG).show();
-                    dateKey = false;
                 } else {
-                    boolean reg = true;
-                    dbDate.child(date).setValue(reg);
+                    dbDate.child(date).setValue(true);
+
+                    //proceed to register attendance if datecheck is ok
+                    incrementDay();
+
                     pg.dismiss();
-                    dateKey = true;
+
                 }
             }
 
@@ -157,8 +123,48 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 dateKey = false;
             }
         });
-        return dateKey;
+
     }
+
+    private void incrementDay() {
+        final DatabaseReference total = FirebaseDatabase.getInstance().getReference("Total Days").child(batch).child(sem);
+        total.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               //if the attendance is not getting registered for the first time
+                // this if will run
+                if (dataSnapshot.exists()) {
+                    long getTotal = (long) dataSnapshot.getValue();
+                    long setTotal = getTotal + 1;
+                    total.setValue(setTotal);
+
+                    updateAttendance();
+
+                } else {
+                    //in case the attendance is getting registered first time , confirm and proceed with alert
+                    alertBuild();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, databaseError.getMessage());
+            }
+        });
+    }
+
+    private void updateAttendance() {
+        ArrayList<ItemStudentAttendance> selList = cAdapter.dataSet;
+        for (int i = 0; i < selList.size(); i++) {
+            ItemStudentAttendance it = selList.get(i);                  //updating student attendance
+            if (it.isSelected()) {
+                updateStudAttendance((i + 1));
+            }
+        }
+        Snackbar.make(findViewById(android.R.id.content), "Attendance Updated Successfully", Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
 
     private void updateStudAttendance(int roll) {
         final DatabaseReference db_roll = FirebaseDatabase.getInstance().getReference("CASA");
@@ -184,14 +190,15 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
 
     private void alertBuild() {
         AlertDialog.Builder builder = new AlertDialog.Builder(AdminMain.this);
-        builder.setTitle("Total Days data not found in DB!!");
-        builder.setMessage("Do you want to create new Column ?");
+        builder.setTitle("Total Days data not found in Database !");
+        builder.setMessage("Are you submitting for the first time ?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Total Days")
                         .child(batch).child(sem);
                 ref.setValue(1);
+                updateAttendance();
             }
         });
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -204,8 +211,10 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                         .child(sem).child(date);
                 ref.removeValue();
                 dialog.dismiss();
+                tdbKey = false;
             }
         });
+
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -308,4 +317,6 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             }
         }
     }
+
+
 }
