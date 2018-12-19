@@ -45,7 +45,9 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                app:backgroundTint="@color/Black" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +109,9 @@
                 android:id="@+id/et_newStudentRollNo"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                app:backgroundTint="@color/Black" />
         </LinearLayout>
 
 
@@ -129,7 +133,9 @@
                 android:id="@+id/et_newStudentEmail"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                app:backgroundTint="@color/Black" />
 
 
         </LinearLayout>
@@ -154,6 +160,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Min 6 charcters"
                 android:inputType="textPassword"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                app:backgroundTint="@color/Black"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
@@ -175,7 +183,9 @@
                 android:id="@+id/et_newStudentPasswordRetype"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                app:backgroundTint="@color/Black" />
         </LinearLayout>
 
         <Button

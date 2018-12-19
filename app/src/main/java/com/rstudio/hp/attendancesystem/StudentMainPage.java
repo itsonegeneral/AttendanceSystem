@@ -224,7 +224,7 @@ public class StudentMainPage extends AppCompatActivity {
                     String total = Long.toString(mtotal);
                     totalDaysTv.setText(total);
                 } else {
-                    totalDaysTv.setText("ERR01");
+                    totalDaysTv.setText("ERR 01");
                     totalDaysTv.setTextColor(Color.RED);
                 }
             }
@@ -384,56 +384,6 @@ public class StudentMainPage extends AppCompatActivity {
             }
         });
     }
-    /*  private void loadNotifications() {
-        final String userID = firebaseAuth.getUid();
-        final FirebaseFirestore notif = FirebaseFirestore.getInstance();
-        firestore.collection("StudentNotifications").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Toast.makeText(StudentMainPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, e.getMessage());
-                    return;
-                }
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    unreadNotifications = 0;
-                    Toast.makeText(StudentMainPage.this, "Got " + documentSnapshot.getString("Notdate"), Toast.LENGTH_SHORT).show();
-                    final DocumentReference dR =
-                            notif.collection("StudentNotifications")
-                                    .document(documentSnapshot.getId())
-                                    .collection("UsersStatus")
-                                    .document(userID);
-                    dR.get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    try {
-                                        boolean ifRead = documentSnapshot.getBoolean("ifRead");
-                                        if (!ifRead) {
-                                            setNotificationUnread();
-                                            unreadNotifications++;
-                                        }
-                                    } catch (NullPointerException ne) {
-                                        Map<String, Object> rMap = new HashMap<>();
-                                        rMap.put("ifRead", false);
-                                        dR.set(rMap);
-                                        ne.printStackTrace();
-                                        setNotificationUnread();
-                                        unreadNotifications++;
-                                    }
-
-                                }
-                            });
-                    if (unreadNotifications == 0) {
-                        setNotificationRead();
-                    } else {
-                        Snackbar.make(findViewById(android.R.id.content), "You have " + unreadNotifications + " unread notifications", Snackbar.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-    }
-*/
 
 
 }

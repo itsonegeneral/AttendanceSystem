@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fdfdfe"
@@ -9,105 +10,85 @@
 
     <include
         android:id="@+id/adminmaintoolbar"
-        layout="@layout/admintoolbarmain"/>
+        layout="@layout/admintoolbarmain" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="168dp"
-        android:src="@drawable/warningsign"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+   <LinearLayout
+       android:gravity="center"
+       android:layout_width="match_parent"
+       android:orientation="vertical"
+       android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Admin page is under development"
-        android:textSize="20dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView1" />
+       <ImageView
+           android:background="@drawable/admin_image"
+           android:layout_width="100dp"
+           android:layout_height="100dp" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Admin ID"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.291"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+       <TextView
+           android:id="@+id/textView3"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="16dp"
+           android:text="@string/admin_main"
+           android:textSize="20sp"
+           android:textStyle="italic" />
 
-    <EditText
-        android:id="@+id/et_adminLoginID"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+       <TextView
+           android:id="@+id/textView13"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="24dp"
+           android:text="Admin ID"
+           android:textSize="20sp"
+           android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/bt_adminSignin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_layout_custom"
-        android:text="Log In"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_adminLoginPass"
-        app:layout_constraintVertical_bias="0.191" />
+       <EditText
+           android:id="@+id/et_adminLoginID"
+           android:layout_width="213dp"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:inputType="textEmailAddress"
+           android:maxLines="1"
+           android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="Password"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.297"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_adminLoginID" />
 
-    <EditText
-        android:id="@+id/et_adminLoginPass"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:inputType="textPassword"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+       <TextView
+           android:id="@+id/textView14"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="4dp"
+           android:text="Password"
+           android:textSize="20sp"
+           android:textStyle="bold" />
 
-</android.support.constraint.ConstraintLayout>
+       <EditText
+           android:id="@+id/et_adminLoginPass"
+           android:layout_width="213dp"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:inputType="textPassword"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="8dp" />
+
+       <Button
+           android:id="@+id/bt_adminSignin"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="8dp"
+           android:textColor="@color/White"
+           android:background="@drawable/button_layout_custom"
+           android:text="@string/log_in" />
+
+
+   </LinearLayout>
+
+</LinearLayout>

@@ -55,6 +55,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
+                    app:backgroundTint="@color/studentPrimary"
+                    android:textCursorDrawable="@drawable/custom_edit_text_cursor"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/ic_editUserName"
                     android:layout_toEndOf="@+id/img_userProfile"
@@ -78,115 +80,114 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/other_settings"
-                android:textSize="14sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/amaranth"
-                    android:text="@string/sem"
-                    android:textColor="@color/Black"
-                    android:textSize="19sp" />
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/other_settings"
+                    android:textSize="14sp" />
 
-
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/spinner_studentProfileSem"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true" />
+                        android:fontFamily="@font/amaranth"
+                        android:text="@string/sem"
+                        android:textColor="@color/Black"
+                        android:textSize="22sp" />
 
 
-                    <ImageView
-                        android:id="@+id/ic_editUserSem"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/ic_edit_black_24dp" />
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:layout_centerVertical="true"
+                            android:id="@+id/spinner_studentProfileSem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true" />
+
+
+                        <ImageView
+                            android:id="@+id/ic_editUserSem"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/ic_edit_black_24dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/amaranth"
+                        android:text="@string/roll_no"
+                        android:textColor="@color/Black"
+                        android:textSize="22sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_studentRollNoProfile"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="0dp"
+                            android:text="41"
+                            android:textColor="@color/Black"
+                            android:textSize="22sp" />
+
+                        <ImageView
+                            android:id="@+id/ic_editUserRolNo"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/ic_edit_black_24dp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
 
             </LinearLayout>
 
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/amaranth"
-                android:text="@string/roll_no"
-                android:textColor="@color/Black"
-                android:textSize="19sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_studentRollNoProfile"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="41"
-                    android:textColor="@color/Black"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/ic_editUserRolNo"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/ic_edit_black_24dp" />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+    <ProgressBar
+        android:id="@+id/pgBar_studentProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
-<ProgressBar
-android:layout_width="wrap_content"
-android:layout_height="wrap_content" /></LinearLayout>
-
-<ProgressBar
-android:id="@+id/pgBar_studentProfile"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_centerInParent="true" />
-
-    </RelativeLayout>
+</RelativeLayout>

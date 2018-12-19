@@ -2,6 +2,7 @@ package com.rstudio.hp.attendancesystem;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 public class adminLogin extends AppCompatActivity {
@@ -36,6 +41,7 @@ public class adminLogin extends AppCompatActivity {
     EditText _et_adminLoginPass,_et_adminLoginUser;
     Button loginbtn;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private CollectionReference log_ref = FirebaseFirestore.getInstance().collection("Admin_logins");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +62,13 @@ public class adminLogin extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void logUserData(){
+        String email  = _et_adminLoginUser.getText().toString();
+        Map<String,Object> map = new HashMap<>();
+        map.put("Mail",email);
+        log_ref.add(map);
     }
     private void setUpToolbar(){
         Toolbar toolbar = findViewById(R.id.adminmaintoolbar);
@@ -113,6 +126,10 @@ public class adminLogin extends AppCompatActivity {
                     pgDialog.dismiss();
                     finish();
                     startActivity(new Intent(adminLogin.this,AdminMenuActivity.class));
+                }else {
+                    Toast.makeText(adminLogin.this,"Not Found as Admin",Toast.LENGTH_SHORT).show();
+                    pgDialog.dismiss();
+                    logUserData();
                 }
             }
             @Override

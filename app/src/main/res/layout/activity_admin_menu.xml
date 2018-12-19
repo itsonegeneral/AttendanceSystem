@@ -11,19 +11,27 @@
         android:id="@+id/toolbar_AdminMenuPage"
         layout="@layout/admintoolbarmain" />
 
-    <include layout="@layout/update_cardview" />
+
+
+
 
     <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
+        <include
+            layout="@layout/update_cardview"
+            android:id="@+id/sampleidCard" />
         <LinearLayout
+            android:layout_below="@+id/sampleidCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="vertical"
             android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
+
+
             <Button
                 android:id="@+id/bt_adminMenu_ManageNotifications"
                 android:layout_width="wrap_content"

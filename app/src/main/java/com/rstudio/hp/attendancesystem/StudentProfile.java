@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class StudentProfile extends AppCompatActivity {
 
     private ImageView bt_editName, bt_editSem;
-    private TextView tv_UserName;
+    private TextView tv_UserName,tv_UserRollNo;
     private EditText et_editName;
     boolean isNameEditing = false, isSemEditing = false;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -113,7 +113,8 @@ public class StudentProfile extends AppCompatActivity {
                     semSpinner.setPrompt(userSem);
                     et_editName.setHint(userName);
                     tv_UserName.setText(userName);
-
+                    String roll = String.valueOf(student.rollno);
+                    tv_UserRollNo.setText(roll);
                 }
                 pgBar.setVisibility(View.GONE);
             }
@@ -125,11 +126,7 @@ public class StudentProfile extends AppCompatActivity {
         });
 
         String[] arr = getResources().getStringArray(R.array.sem_array);
-        for(int i=arr.length; i> 1;i++){
-            arr[i]=arr[i-1];
-        }
-        arr[0] = userSem;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item_profile, arr);
         semSpinner.setAdapter(adapter);
         semSpinner.setEnabled(false);
     }
@@ -172,6 +169,7 @@ public class StudentProfile extends AppCompatActivity {
         bt_editName = findViewById(R.id.ic_editUserName);
         tv_UserName = findViewById(R.id.tv_studentNameProfile);
         et_editName = findViewById(R.id.et_updateProfileName);
+        tv_UserRollNo = findViewById(R.id.tv_studentRollNoProfile);
         et_editName.setVisibility(View.GONE);
         pgBar.setVisibility(View.GONE);
     }
