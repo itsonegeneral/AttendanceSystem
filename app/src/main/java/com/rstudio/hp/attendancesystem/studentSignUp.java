@@ -106,10 +106,8 @@ public class studentSignUp extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Account Created",Toast.LENGTH_SHORT).show();
                     firebaseAuth=getInstance();
                     uploadUserDetails();
-                     firebaseAuth.signOut();
                      pgBar.dismiss();
                     finish();
 
@@ -175,8 +173,20 @@ public class studentSignUp extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         Student student = new Student(name,batch,rollno,sem);
         DatabaseReference uuidRef= FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getUid());
-        uuidRef.setValue(student);
         DatabaseReference rlist = database.getReference("Registered Students");
         rlist.child(batch).child(sem).push().setValue(name);
+        uuidRef.setValue(student).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"Account Created",Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                }else{
+                    uploadUserDetails();
+                }
+            }
+        });
+
+
     }
 }

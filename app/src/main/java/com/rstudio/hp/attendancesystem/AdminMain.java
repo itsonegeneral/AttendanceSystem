@@ -55,10 +55,14 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         setUpDatePicker();
         setStudentsList();
         list = findViewById(R.id.listView_adminPage);
-        Arrays.sort(studentsName);
-        for (int i = 0; i < studentsName.length; i++) {
-            ItemStudentAttendance student = new ItemStudentAttendance(studentsName[i], true);
-            rowItem.add(student);
+
+        if (studentsName == null) {
+            Snackbar.make(findViewById(android.R.id.content), "Student List Not Found", Snackbar.LENGTH_INDEFINITE).show();
+        } else {
+            for (int i = 0; i < studentsName.length; i++) {
+                ItemStudentAttendance student = new ItemStudentAttendance(studentsName[i], true);
+                rowItem.add(student);
+            }
         }
 
         if (sem.equals("S3") && batch.equals("BCA")) {
@@ -131,7 +135,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         total.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               //if the attendance is not getting registered for the first time
+                //if the attendance is not getting registered for the first time
                 // this if will run
                 if (dataSnapshot.exists()) {
                     long getTotal = (long) dataSnapshot.getValue();
@@ -267,15 +271,17 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 return;
             }
             case "S2": {
-                // studentsName = getResources().getStringArray(R.array.studentsbcas2);
+                studentsName = getResources().getStringArray(R.array.students2018bca);
                 break;
             }
             case "S3": {
                 studentsName = getResources().getStringArray(R.array.students2017bca);
+                Arrays.sort(studentsName);
                 break;
             }
             case "S4": {
-                //    studentsName = getResources().getStringArray(R.array.studentsbcas4);
+                 studentsName = getResources().getStringArray(R.array.students2017bca);
+                Arrays.sort(studentsName);
                 break;
             }
             case "S5": {
@@ -283,7 +289,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S6": {
-                //studentsName = getResources().getStringArray(R.array.studentsbcas6);
+                studentsName = getResources().getStringArray(R.array.students2016bca);
                 break;
             }
         }
@@ -296,23 +302,23 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S2": {
-                // studentsName = getResources().getStringArray(R.array.studentss2cs);
+                 studentsName = getResources().getStringArray(R.array.students2018cs);
                 break;
             }
             case "S3": {
-                //  studentsName = getResources().getStringArray(R.array.studentss3cs);
+                  studentsName = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S4": {
-                //  studentsName = getResources().getStringArray(R.array.studentss4cs);
+                  studentsName = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S5": {
-                // studentsName = getResources().getStringArray(R.array.studentss5cs);
+                  studentsName = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
             case "S6": {
-                // studentsName = getResources().getStringArray(R.array.studentss6cs);
+                  studentsName = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
         }

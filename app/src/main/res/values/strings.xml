@@ -4,5 +4,9 @@
     <string name="admin_main">Students are not allowed to Login here</string>
     <string name="log_in">Log In</string>
     <string name="no_new_notification">No Notifications</string>
-
+    <string name="change_sem_to_current">Change Sem to Current Sem if the attendance is not available or is Incorrect</string>
+    <string name="batch">Batch</string>
+    <string name="admin_id">Admin ID</string>
+    <string name="present">Present</string>
+    <string name="total_days">Total Days</string>
 </resources>

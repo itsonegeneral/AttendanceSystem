@@ -41,7 +41,7 @@
            android:layout_marginEnd="8dp"
            android:layout_marginStart="8dp"
            android:layout_marginTop="24dp"
-           android:text="Admin ID"
+           android:text="@string/admin_id"
            android:textSize="20sp"
            android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
            android:layout_marginEnd="8dp"
            android:layout_marginStart="8dp"
            android:layout_marginTop="4dp"
-           android:text="Password"
+           android:text="@string/pass"
            android:textSize="20sp"
            android:textStyle="bold" />
 
@@ -85,7 +85,7 @@
            android:layout_marginStart="8dp"
            android:layout_marginTop="8dp"
            android:textColor="@color/White"
-           android:background="@drawable/button_layout_custom"
+           android:background="@drawable/button_layout_custom_2"
            android:text="@string/log_in" />
 
 

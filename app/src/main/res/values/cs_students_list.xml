@@ -18,7 +18,6 @@
         <item>Anson Alex</item>
         <item>Arjun P M</item>
         <item>Arun Prakash</item>
-        <item>Arun Prakash</item>
         <item>Arun Raj</item>
         <item>Ashiya Beegum A</item>
         <item>Aswan Aji</item>
@@ -37,7 +36,7 @@
         <item>Minimol M</item>
         <item>Naunith C A</item>
         <item>Rekhalekshmi R</item>
-        <item>Reshmi Ram Goapal</item>
+        <item>Reshmi Ram Gopal</item>
         <item>Saikrishnan C Nair</item>
         <item>Sarath S Sivanandan</item>
         <item>Sidhardh S Vijai</item>
@@ -48,14 +47,92 @@
         <item>Sreeshma R S</item>
         <item>Surya G S</item>
 
-
-
-
-
-
     </string-array>
 
     <string-array name="students2016cs">
-        <item>1</item>
+        <item>Adithya S Kumar</item>
+        <item>Aleeamma Geevarghese</item>
+        <item>Alkha Elien Jacob</item>
+        <item>Amrutha M</item>
+        <item>Ananth Sri</item>
+        <item>Anjali R</item>
+        <item>Anjitha V</item>
+        <item>Anu Fathima S</item>
+        <item>Arunima Raj</item>
+        <item>Athira Madhukumar</item>
+        <item>Athira S B</item>
+        <item>Athul Biju</item>
+        <item>Bharath J Raj</item>
+        <item>Bincy Jacob</item>
+        <item>Binu S Kumar</item>
+        <item>Devika B Nair</item>
+        <item>Devika S</item>
+        <item>Divya Darsan S</item>
+        <item>Fathima H</item>
+        <item>Fino R Varghese</item>
+        <item>Kavya Krishnan</item>
+        <item>Lakshmi S Nair</item>
+        <item>Lijo George</item>
+        <item>Linta K Monachan</item>
+        <item>Mahesh M</item>
+        <item>Manjusha G</item>
+        <item>Nimisha Mohan</item>
+        <item>Parvathy R Nair</item>
+        <item>Parvathy S</item>
+        <item>Pranavya S</item>
+        <item>Premjith S</item>
+        <item>Rahul Chandran</item>
+        <item>Ram Raj</item>
+        <item>Rexon M Alex</item>
+        <item>Sreelekshmi S</item>
+        <item>Sreyas R</item>
+        <item>Surya K R</item>
+        <item>Muhammad Faizal</item>
+    </string-array>
+    
+    <string-array name="students2017cs">
+
+        <item>Abhirami B</item>
+        <item>Akhil Reji</item>
+        <item>Akhila S</item>
+        <item>Anand Sekhar</item>
+        <item>Anandhu A</item>
+        <item>Ananthu Krishnan</item>
+        <item>Ananthu Krishnan</item>
+        <item>Ancy P Achenkunju</item>
+        <item>Aneesha Shaji</item>
+        <item>Anju J Nair</item>
+        <item>Anusree S</item>
+        <item>Archa Hari</item>
+        <item>Arjun M Mohan</item>
+        <item>Arya M Raju</item>
+        <item>Aryalakshmy S</item>
+        <item>Athira S Nair</item>
+        <item>Athul S Anil</item>
+        <item>Benson Biju</item>
+        <item>Betsy Babu</item>
+        <item>Brahma Suresh</item>
+        <item>Drishya S</item>
+        <item>Harikrishnan R</item>
+        <item>Jayakrishnan K</item>
+        <item>Jithin B Reji</item>
+        <item>Kishore V</item>
+        <item>Malu S</item>
+        <item>Muhammed Sabeer B</item>
+        <item>Parvathy Raj U</item>
+        <item>Praveena Vijayan</item>
+        <item>Rakhi G</item>
+        <item>Reshmi Ravi</item>
+        <item>Sijoy P John</item>
+        <item>Silpa Raj</item>
+        <item>Sneha Sajeev</item>
+        <item>Sreelakshmi S</item>
+        <item>Srithi S</item>
+        <item>Sunil Babu</item>
+        <item>Ullas S</item>
+        <item>Vandana P Saji</item>
+
+
+
     </string-array>
 </resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="admin_menu_tv">16sp</dimen>
+    <dimen name="admin_menu_button_tv">12sp</dimen>
+</resources>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +29,7 @@ public class AdminMenuActivity extends AppCompatActivity {
     private CardView update_card;
     private Button mNotifications;
     private Button regAttendance;
+    private TextView tv_sem,tv_name;
     private Button logout;
     private Button viewAttendace;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -98,9 +100,11 @@ public class AdminMenuActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Admin Tools");
     }
     private void setValues(){
-        update_card = findViewById(R.id.cardView_Update);
+        update_card = findViewById(R.id.sampleidCard);
         mNotifications = findViewById(R.id.bt_adminMenu_ManageNotifications);
         regAttendance = findViewById(R.id.bt_adminMenu_registerAttendance);
+        tv_name = findViewById(R.id.tv_adminMenuName);
+        tv_sem = findViewById(R.id.tv_adminMenuSem);
         pgDialog = new ProgressDialog(AdminMenuActivity.this);
         viewAttendace = findViewById(R.id.bt_adminMenu_ViewAttendance);
     }
@@ -116,8 +120,12 @@ public class AdminMenuActivity extends AppCompatActivity {
                     Log.d(TAG, "Error. No Data");
                     pgDialog.cancel();
                 }else{
+                    String name =(String) dataSnapshot.child("name").getValue();
+                    String tname = "Name : "+name;
+                    tv_name.setText(tname);
                     batch =(String) dataSnapshot.child("batch").getValue();
                     sem = (String) dataSnapshot.child("sem").getValue();
+                    tv_sem.setText("Current Access : "+batch+" ,"+sem);
                     pgDialog.cancel();
                 }
             }

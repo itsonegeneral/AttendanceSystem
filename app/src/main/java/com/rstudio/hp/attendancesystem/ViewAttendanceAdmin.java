@@ -51,14 +51,14 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                         long mAttend = snapshot.getValue(Long.class);
                         double percent = (  (double)mAttend/ (double)totalDays  )*100;
                         percentage[i] = (int) percent ;
-                        Log.d(TAG, "Added" + percentage[i]+ " " + i) ;
+                        Log.d(TAG, "Added" + percentage[i]+ percent + " " + i) ;
                         i++;
                     }
                     viewAdaptor.percentage = percentage;
                     listView.setAdapter(viewAdaptor);
                     pgBar.setVisibility(View.GONE);
                 }else{
-                    Snackbar.make(findViewById(android.R.id.content),"Error !",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(android.R.id.content),"No Data Found",Snackbar.LENGTH_INDEFINITE).show();
                     pgBar.setVisibility(View.GONE);
                 }
             }
@@ -118,11 +118,11 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
     private void bcaSwitch() {
         switch (sem) {
             case "S1": {
-               namelist = getResources().getStringArray(R.array.students2018bca);
-                break;
+                namelist = getResources().getStringArray(R.array.students2018bca);
+                return;
             }
             case "S2": {
-                // namelist = getResources().getStringArray(R.array.studentsbcas2);
+                namelist = getResources().getStringArray(R.array.students2018bca);
                 break;
             }
             case "S3": {
@@ -130,7 +130,7 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                 break;
             }
             case "S4": {
-                //    namelist = getResources().getStringArray(R.array.studentsbcas4);
+                namelist = getResources().getStringArray(R.array.students2017bca);
                 break;
             }
             case "S5": {
@@ -138,12 +138,11 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                 break;
             }
             case "S6": {
-                //namelist = getResources().getStringArray(R.array.studentsbcas6);
+                namelist = getResources().getStringArray(R.array.students2016bca);
                 break;
             }
         }
     }
-
 
     private void bscSwitch() {
         switch (sem) {
@@ -152,27 +151,28 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                 break;
             }
             case "S2": {
-                // namelist = getResources().getStringArray(R.array.studentss2cs);
+                namelist = getResources().getStringArray(R.array.students2018cs);
                 break;
             }
             case "S3": {
-                //  namelist = getResources().getStringArray(R.array.studentss3cs);
+                namelist = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S4": {
-                //  namelist = getResources().getStringArray(R.array.studentss4cs);
+                namelist = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S5": {
-                // namelist= getResources().getStringArray(R.array.studentss5cs);
+                namelist = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
             case "S6": {
-                // namelist= getResources().getStringArray(R.array.studentss6cs);
+                namelist = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
         }
     }
+
     private void setUpToolbar(){
         Toolbar toolbar = findViewById(R.id.toolbar_adminViewAttendance);
         setSupportActionBar(toolbar);

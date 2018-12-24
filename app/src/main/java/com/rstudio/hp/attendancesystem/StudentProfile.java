@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class StudentProfile extends AppCompatActivity {
 
-    private ImageView bt_editName, bt_editSem;
+    private ImageView bt_editName, bt_editSem,bt_editRollNo;
     private TextView tv_UserName,tv_UserRollNo;
     private EditText et_editName;
     boolean isNameEditing = false, isSemEditing = false;

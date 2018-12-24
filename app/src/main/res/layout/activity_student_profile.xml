@@ -55,13 +55,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
-                    app:backgroundTint="@color/studentPrimary"
-                    android:textCursorDrawable="@drawable/custom_edit_text_cursor"
                     android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@+id/ic_editUserName"
                     android:layout_toEndOf="@+id/img_userProfile"
                     android:fontFamily="@font/amaranth"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textCursorDrawable="@drawable/custom_edit_text_cursor"
+                    app:backgroundTint="@color/studentPrimary" />
 
                 <ImageView
                     android:id="@+id/ic_editUserName"
@@ -93,49 +93,6 @@
                     android:layout_marginBottom="5dp"
                     android:text="@string/other_settings"
                     android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/amaranth"
-                        android:text="@string/sem"
-                        android:textColor="@color/Black"
-                        android:textSize="22sp" />
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <Spinner
-                            android:layout_centerVertical="true"
-                            android:id="@+id/spinner_studentProfileSem"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true" />
-
-
-                        <ImageView
-                            android:id="@+id/ic_editUserSem"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="10dp"
-                            android:background="@drawable/ic_edit_black_24dp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -173,10 +130,72 @@
                             android:layout_height="25dp"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="10dp"
-                            android:background="@drawable/ic_edit_black_24dp" />
+                            android:background="@drawable/ic_edit_black_24dp"
+                            android:visibility="gone" />
 
                     </RelativeLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/amaranth"
+                        android:text="@string/sem"
+                        android:textColor="@color/Black"
+                        android:textSize="22sp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/spinner_studentProfileSem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true" />
+
+
+                        <ImageView
+                            android:id="@+id/ic_editUserSem"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/ic_edit_black_24dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/amaranth"
+                        android:gravity="center"
+                        android:paddingBottom="50dp"
+                        android:text="@string/change_sem_to_current"
+                        android:textSize="18sp" />
+
+                </RelativeLayout>
 
 
             </LinearLayout>

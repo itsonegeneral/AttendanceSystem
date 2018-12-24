@@ -111,8 +111,10 @@ public class studentLogin extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Toast.makeText(getApplicationContext(),"Admin account detected ,Goto Admin Login",Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(),"Admin account detected",Toast.LENGTH_SHORT)
                             .show();
+                    finish();
+                    startActivity(new Intent(studentLogin.this,adminLogin.class));
                     pgDialog.cancel();
                 } else {
                     pgDialog.cancel();
