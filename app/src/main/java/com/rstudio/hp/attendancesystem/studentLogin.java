@@ -115,18 +115,18 @@ public class studentLogin extends AppCompatActivity {
                             .show();
                     finish();
                     startActivity(new Intent(studentLogin.this,adminLogin.class));
-                    pgDialog.cancel();
+                    pgDialog.dismiss();
                 } else {
+                    pgDialog.dismiss();
                     pgDialog.cancel();
                     startActivity(new Intent(studentLogin.this, StudentMainPage.class));
                     finish();
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                pgDialog.cancel();
+                pgDialog.dismiss();
                 Log.d(TAG, databaseError.getMessage());
             }
         });
@@ -165,7 +165,6 @@ public class studentLogin extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    pgDialog.dismiss();
                     isAdmin();
                 } else {
                     forgot_pass_tv.setVisibility(View.VISIBLE);

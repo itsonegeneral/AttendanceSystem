@@ -138,10 +138,10 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 //if the attendance is not getting registered for the first time
                 // this if will run
                 if (dataSnapshot.exists()) {
-                    long getTotal = (long) dataSnapshot.getValue();
+                    long getTotal = (long) dataSnapshot.child("Days").getValue();
                     long setTotal = getTotal + 1;
-                    total.setValue(setTotal);
-
+                    total.child("Days").setValue(setTotal);
+                    total.child("Last Updated").setValue(date);
                     updateAttendance();
 
                 } else {
@@ -201,7 +201,8 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             public void onClick(DialogInterface dialog, int which) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Total Days")
                         .child(batch).child(sem);
-                ref.setValue(1);
+                ref.child("Days").setValue(1);
+                ref.child("Last Updated").setValue(date);
                 updateAttendance();
             }
         });

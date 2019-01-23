@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class StudentProfile extends AppCompatActivity {
 
@@ -116,7 +122,21 @@ public class StudentProfile extends AppCompatActivity {
                     String roll = String.valueOf(student.rollno);
                     tv_UserRollNo.setText(roll);
                 }
+
+                setSpinner();
+
                 pgBar.setVisibility(View.GONE);
+            }
+
+            private void setSpinner() {
+                String[] arr= getResources().getStringArray(R.array.sem_array);
+                List<String> list = Arrays.asList(arr);
+                ArrayList<String> ulist = new ArrayList<>();
+                ulist.add(userSem);
+                ulist.addAll(list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(StudentProfile.this,R.layout.spinner_item_profile,ulist);
+                semSpinner.setAdapter(adapter);
+                semSpinner.setEnabled(false);
             }
 
             @Override
@@ -125,10 +145,8 @@ public class StudentProfile extends AppCompatActivity {
             }
         });
 
-        String[] arr = getResources().getStringArray(R.array.sem_array);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item_profile, arr);
-        semSpinner.setAdapter(adapter);
-        semSpinner.setEnabled(false);
+
+
     }
 
 

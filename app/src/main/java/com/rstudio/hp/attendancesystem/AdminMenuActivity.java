@@ -137,7 +137,7 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
     private void checkVersion(){
-        final int version = 5;
+        final int version = 6;
         DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
         vc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

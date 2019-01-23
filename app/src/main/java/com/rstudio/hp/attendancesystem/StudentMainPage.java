@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,19 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 public class StudentMainPage extends AppCompatActivity {
 
@@ -57,6 +44,7 @@ public class StudentMainPage extends AppCompatActivity {
     private int unreadNotifications = 0;
     private static final String TAG = "StudentMainPage";
     private TextView welcometv, percentage, status, rollnoTV, presentDaysTv, totalDaysTv, batch_sem_tv;
+    private TextView lastUpdated_tv;
     private FirebaseAuth firebaseAuth;
     private long i, mtotal;
     private long rollno;
@@ -90,7 +78,7 @@ public class StudentMainPage extends AppCompatActivity {
 
     private void versionCheck() {
         DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
-        final int VERSION = 5;
+        final int VERSION = 6;
         vc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -220,9 +208,12 @@ public class StudentMainPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    mtotal = (long) dataSnapshot.getValue();
+                    mtotal = (long) dataSnapshot.child("Days").getValue();
                     String total = Long.toString(mtotal);
                     totalDaysTv.setText(total);
+                    String last_update = (String)dataSnapshot.child("Last Updated").getValue();
+                    String text = "Last Updated : " + last_update;
+                    lastUpdated_tv.setText(text);
                 } else {
                     totalDaysTv.setText("ERR 01");
                     totalDaysTv.setTextColor(Color.RED);
@@ -231,7 +222,6 @@ public class StudentMainPage extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -334,6 +324,7 @@ public class StudentMainPage extends AppCompatActivity {
         presentDaysTv = findViewById(R.id.tv_presentDaysStudMain);
         totalDaysTv = findViewById(R.id.tv_totalDaysStudMain);
         rollnoTV = findViewById(R.id.tv_studentMainRollno);
+        lastUpdated_tv = findViewById(R.id.tv_lastUpdated_student);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(firebaseUser.getUid());
         batch_sem_tv = findViewById(R.id.tv_studentMainBatchSem);

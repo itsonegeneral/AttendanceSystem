@@ -102,7 +102,12 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    totalDays =  dataSnapshot.getValue(Integer.class);
+                    try{
+                        totalDays =  dataSnapshot.getValue(Integer.class);
+                    }catch(NullPointerException e){
+                        e.printStackTrace();
+                    }
+
                 } else {
                     Log.d(TAG, "DB Not found");
                 }

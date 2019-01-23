@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/forgot_pass"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic" />
 
 
@@ -134,9 +134,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:fontFamily="serif"
-                android:text="Admin Login"
+                android:text="@string/admin_login"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="italic" />
         </LinearLayout>
 

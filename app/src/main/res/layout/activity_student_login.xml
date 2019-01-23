@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:paddingLeft="10sp"
-                android:text="Password"
+                android:text="@string/pass"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -94,7 +94,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/button_layout_custom"
-                android:text="Login"
+                android:text="@string/log_in"
                 android:textAllCaps="false"
                 android:textColor="#fff" />
 
