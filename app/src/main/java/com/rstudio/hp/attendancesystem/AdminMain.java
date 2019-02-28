@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    ArrayList<String> sList = new ArrayList<>();
     String[] studentsName;
     ListView list;
     ArrayList<ItemStudentAttendance> rowItem;
@@ -53,24 +55,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
         setupToolbar();
         setValues();
         setUpDatePicker();
-        setStudentsList();
         list = findViewById(R.id.listView_adminPage);
-
-        if (studentsName == null) {
-            Snackbar.make(findViewById(android.R.id.content), "Student List Not Found", Snackbar.LENGTH_INDEFINITE).show();
-        } else {
-            for (int i = 0; i < studentsName.length; i++) {
-                ItemStudentAttendance student = new ItemStudentAttendance(studentsName[i], true);
-                rowItem.add(student);
-            }
-        }
-
-        if (sem.equals("S3") && batch.equals("BCA")) {
-            rowItem.get(34).setSelected(false);     //Uncheck Vipin All the time
-        }
-        cAdapter = new CustomAdapter(rowItem, getApplicationContext());
-        list.setAdapter(cAdapter);
-
         submitbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -82,9 +67,49 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 }
             }
         });
+        setStudentsList();
+        setListIntoAdapter();
+    }
+
+    private void setListIntoAdapter() {
+        if (studentsName == null) {
+            Snackbar.make(findViewById(android.R.id.content), "Student List Not Found", Snackbar.LENGTH_INDEFINITE).show();
+        } else {
+            for (int i = 0; i < studentsName.length; i++) {
+                ItemStudentAttendance student = new ItemStudentAttendance(studentsName[i], true);
+                rowItem.add(student);
+            }
+        }
+
+        cAdapter = new CustomAdapter(rowItem, getApplicationContext());
+        list.setAdapter(cAdapter);
+
     }
 
     private void setStudentsList() {
+       /* DatabaseReference listRef = FirebaseDatabase.getInstance().getReference("Students List").child(batch).child(sem);
+        listRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    try {
+                        sList.add((String) dataSnapshot1.child("name").getValue());
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
+
+                }
+                studentsName= Arrays.copyOf(sList.toArray(),sList.size(),String[].class);
+                setListIntoAdapter();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+
         switch (batch) {
             case "BCA": {
                 bcaSwitch(sem);
@@ -94,6 +119,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 bscSwitch(sem);
             }
         }
+
     }
 
     private void dateCheck() {
@@ -211,10 +237,14 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(AdminMain.this, "Day not added", Toast.LENGTH_SHORT).show();
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Dates")
-                        .child(batch)
-                        .child(sem).child(date);
-                ref.removeValue();
+                try {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Dates")
+                            .child(batch)
+                            .child(sem).child(date);
+                    ref.removeValue();
+                } catch (NullPointerException e) {
+                    Log.d(TAG, e.getMessage());
+                }
                 dialog.dismiss();
                 tdbKey = false;
             }
@@ -281,7 +311,7 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S4": {
-                 studentsName = getResources().getStringArray(R.array.students2017bca);
+                studentsName = getResources().getStringArray(R.array.students2017bca);
                 Arrays.sort(studentsName);
                 break;
             }
@@ -303,23 +333,23 @@ public class AdminMain extends AppCompatActivity implements DatePickerDialog.OnD
                 break;
             }
             case "S2": {
-                 studentsName = getResources().getStringArray(R.array.students2018cs);
+                studentsName = getResources().getStringArray(R.array.students2018cs);
                 break;
             }
             case "S3": {
-                  studentsName = getResources().getStringArray(R.array.students2017cs);
+                studentsName = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S4": {
-                  studentsName = getResources().getStringArray(R.array.students2017cs);
+                studentsName = getResources().getStringArray(R.array.students2017cs);
                 break;
             }
             case "S5": {
-                  studentsName = getResources().getStringArray(R.array.students2016cs);
+                studentsName = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
             case "S6": {
-                  studentsName = getResources().getStringArray(R.array.students2016cs);
+                studentsName = getResources().getStringArray(R.array.students2016cs);
                 break;
             }
         }

@@ -78,7 +78,7 @@ public class StudentMainPage extends AppCompatActivity {
 
     private void versionCheck() {
         DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
-        final int VERSION = 6;
+        final int VERSION = 8;
         vc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -159,20 +159,26 @@ public class StudentMainPage extends AppCompatActivity {
                     int tper = (int) perc;
                     String a = Long.toString(pDays);
                     presentDaysTv.setText(a);
-                    if (perc < 75) {
+                    if (pDays == 1 && mtotal == 1) {
+                        percentage.setTextColor(Color.parseColor("#00bc10"));
+                        status.setText("You are going good");
+                    } else if (perc < 75) {
                         long bunked = mtotal - pDays;
                         long total_to_bunked = bunked * 4;
                         long to_attend = total_to_bunked - mtotal;
                         String at_string = Long.toString(to_attend);
                         percentage.setTextColor(Color.RED);
                         status.setText("You must attend " + at_string + " classes");
-                    } else if (perc >= 75) {
+                    } else if (perc > 75) {
                         percentage.setTextColor(Color.parseColor("#00bc10"));
                         long total = (mtotal / 3) * 4;
                         long absent = mtotal - pDays;
                         long bunkable = total - mtotal - absent;
                         String bunk = Long.toString(bunkable);
                         status.setText("Great! You can bunk " + bunk + " classes");
+                    } else if (perc == 75) {
+                        percentage.setTextColor(Color.parseColor("#00bc10"));
+                        status.setText("Great! You can bunk 0 classes");
                     } else {
                         status.setText("You are going good");
                     }
@@ -211,7 +217,7 @@ public class StudentMainPage extends AppCompatActivity {
                     mtotal = (long) dataSnapshot.child("Days").getValue();
                     String total = Long.toString(mtotal);
                     totalDaysTv.setText(total);
-                    String last_update = (String)dataSnapshot.child("Last Updated").getValue();
+                    String last_update = (String) dataSnapshot.child("Last Updated").getValue();
                     String text = "Last Updated : " + last_update;
                     lastUpdated_tv.setText(text);
                 } else {

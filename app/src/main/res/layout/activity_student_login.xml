@@ -52,7 +52,6 @@
                 android:id="@+id/et_studentEmail"
                 android:layout_width="250sp"
                 android:textCursorDrawable="@drawable/custom_edit_text_cursor"
-
                 app:backgroundTint="@color/Black"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

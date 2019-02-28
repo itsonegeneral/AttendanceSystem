@@ -48,11 +48,15 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     int i=0;
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        long mAttend = snapshot.getValue(Long.class);
-                        double percent = (  (double)mAttend/ (double)totalDays  )*100;
-                        percentage[i] = (int) percent ;
-                        Log.d(TAG, "Added" + percentage[i]+ percent + " " + i) ;
-                        i++;
+                        try {
+                            long mAttend = snapshot.getValue(Long.class);
+                            double percent = ((double) mAttend / (double) totalDays) * 100;
+                            percentage[i] = (int) percent;
+                            Log.d(TAG, "Added" + percentage[i] + percent + " " + i);
+                            i++;
+                        }catch(NullPointerException e){
+                            e.printStackTrace();
+                        }
                     }
                     viewAdaptor.percentage = percentage;
                     listView.setAdapter(viewAdaptor);
@@ -97,7 +101,7 @@ public class ViewAttendanceAdmin extends AppCompatActivity {
     }
 
     private void getTotalDays(){
-        DatabaseReference totalRef = FirebaseDatabase.getInstance().getReference("Total Days").child(batch).child(sem);
+        DatabaseReference totalRef = FirebaseDatabase.getInstance().getReference("Total Days").child(batch).child(sem).child("Days");
         totalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

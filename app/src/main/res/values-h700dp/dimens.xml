@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="admin_menu_tv">20sp</dimen>
+    <dimen name="admin_menu_tv">19sp</dimen>
     <dimen name="profile_main">22sp</dimen>
     <dimen name="admin_menu_button_tv">16sp</dimen>
 </resources>

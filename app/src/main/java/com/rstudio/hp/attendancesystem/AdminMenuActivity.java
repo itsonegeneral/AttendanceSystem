@@ -137,18 +137,22 @@ public class AdminMenuActivity extends AppCompatActivity {
         });
     }
     private void checkVersion(){
-        final int version = 6;
+        final int version = 8;
         DatabaseReference vc = FirebaseDatabase.getInstance().getReference("Version");
         vc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    long mVer = dataSnapshot.getValue(Long.class);
-                    if(mVer>version){
-                        Animation anim = AnimationUtils.loadAnimation(AdminMenuActivity.this,R.anim.move_up);
-                        update_card.setVisibility(View.VISIBLE);
-                        anim.setDuration(700);
-                        update_card.startAnimation(anim);
+                if(dataSnapshot.exists()) {
+                    try {
+                        long mVer = dataSnapshot.getValue(Long.class);
+                        if (mVer > version) {
+                            Animation anim = AnimationUtils.loadAnimation(AdminMenuActivity.this, R.anim.move_up);
+                            update_card.setVisibility(View.VISIBLE);
+                            anim.setDuration(700);
+                            update_card.startAnimation(anim);
+                        }
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
                     }
                 }
             }
